@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import TaskBoard from './components/TaskBoard';
+import Calendar from './components/Calendar';
 import './App.css';
 
 function App() {
@@ -28,12 +29,7 @@ function App() {
               <p>People management coming soon...</p>
             </div>
           )}
-          {activeTab === 'calendar' && (
-            <div className="placeholder">
-              <h2>📅 Calendar</h2>
-              <p>Calendar view coming soon...</p>
-            </div>
-          )}
+          {activeTab === 'calendar' && <Calendar />}
           {activeTab === 'study-room' && (
             <div className="placeholder">
               <h2>📚 Study Room</h2>
