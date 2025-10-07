@@ -1,0 +1,128 @@
+.task-board {
+  display: flex;
+  gap: 16px;
+  padding: 24px;
+  overflow-x: auto;
+  min-height: calc(100vh - 80px);
+  background-color: #ffffff;
+}
+
+.task-column {
+  min-width: 280px;
+  max-width: 380px;
+  width: 340px;
+  flex-shrink: 0;
+  background-color: #e6ecf0;
+  border-radius: 5px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+}
+
+.column-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.column-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.column-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+.column-count {
+  background-color: #d5d5d5;
+  color: #4b5563;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 50px;
+  min-width: 24px;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.column-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.column-btn {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #6b7280;
+  background-color: #d5d5d5;
+  transition: background-color 0.2s;
+  font-weight: 600;
+}
+
+.column-btn:hover {
+  background-color: #e5e7eb;
+}
+
+.column-content {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.column-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.column-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.column-content::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 3px;
+}
+
+.column-content::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .task-board {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .task-column {
+    min-width: 260px;
+    width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .task-board {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .task-column {
+    min-width: 240px;
+    width: 280px;
+  }
+}

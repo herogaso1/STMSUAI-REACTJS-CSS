@@ -1,35 +1,73 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import Sidebar from './components/Sidebar';
+import Header from './components/Header';
+import TaskBoard from './components/TaskBoard';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [activeTab, setActiveTab] = useState('tasks');
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="app">
+      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+      
+      <div className="main-content">
+        <Header />
+
+        <div className="content-area">
+          {activeTab === 'tasks' && <TaskBoard />}
+          {activeTab === 'dashboard' && (
+            <div className="placeholder">
+              <h2>📊 Dashboard</h2>
+              <p>Dashboard content coming soon...</p>
+            </div>
+          )}
+          {activeTab === 'people' && (
+            <div className="placeholder">
+              <h2>👥 People</h2>
+              <p>People management coming soon...</p>
+            </div>
+          )}
+          {activeTab === 'calendar' && (
+            <div className="placeholder">
+              <h2>📅 Calendar</h2>
+              <p>Calendar view coming soon...</p>
+            </div>
+          )}
+          {activeTab === 'study-room' && (
+            <div className="placeholder">
+              <h2>📚 Study Room</h2>
+              <p>Study room feature coming soon...</p>
+            </div>
+          )}
+          {activeTab === 'pomodoro' && (
+            <div className="placeholder">
+              <h2>⏱️ Pomodoro</h2>
+              <p>Pomodoro timer coming soon...</p>
+            </div>
+          )}
+          {activeTab === 'reports' && (
+            <div className="placeholder">
+              <h2>📈 Reports</h2>
+              <p>Reports and analytics coming soon...</p>
+            </div>
+          )}
+          {activeTab === 'admin' && (
+            <div className="placeholder">
+              <h2>⚙️ Admin Panel</h2>
+              <p>Admin panel coming soon...</p>
+            </div>
+          )}
+          {activeTab === 'help' && (
+            <div className="placeholder">
+              <h2>❓ Help</h2>
+              <p>Help and support coming soon...</p>
+            </div>
+          )}
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
