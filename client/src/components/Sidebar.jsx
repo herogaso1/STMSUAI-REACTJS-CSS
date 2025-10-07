@@ -2,7 +2,7 @@ import React from 'react';
 import './Sidebar.css';
 import dashboardIcon from '../assets/TaskManagement-icon/dashboard.svg';
 import peopleIcon from '../assets/TaskManagement-icon/people.svg';
-import taskIcon from '../assets/TaskManagement-icon/task.svg';
+import taskIcon from '../assets/TaskManagement-icon/task-default.svg';
 import calendarIcon from '../assets/TaskManagement-icon/calendar.svg';
 import studyRoomIcon from '../assets/TaskManagement-icon/study-room.svg';
 import pomodoroIcon from '../assets/TaskManagement-icon/pomodoro.svg';

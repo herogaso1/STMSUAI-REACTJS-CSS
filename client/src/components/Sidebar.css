@@ -63,10 +63,6 @@
 
 .sidebar-item:hover {
   background-color: #e8eef5;
-}
-
-.sidebar-item.active {
-  background-color: #d4e3f7;
   color: #2563eb;
   font-weight: 500;
 }
@@ -75,6 +71,17 @@
   width: 20px;
   height: 20px;
   object-fit: contain;
+  transition: all 0.2s;
+}
+
+.sidebar-item:hover .sidebar-icon {
+  opacity: 1;
+  filter: brightness(0) saturate(100%) invert(32%) sepia(87%) saturate(2466%)
+    hue-rotate(212deg) brightness(95%) contrast(91%);
+}
+
+.sidebar-item.active .sidebar-icon {
+  opacity: 1;
 }
 
 .sidebar-label {
