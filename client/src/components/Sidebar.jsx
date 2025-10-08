@@ -1,26 +1,26 @@
 import React from 'react';
 import './Sidebar.css';
 import dashboardIcon from '../assets/TaskManagement-icon/dashboard.svg';
-import peopleIcon from '../assets/TaskManagement-icon/people.svg';
 import taskIcon from '../assets/TaskManagement-icon/task-default.svg';
+import notesIcon from '../assets/TaskManagement-icon/task-default.svg'; // Temporary, replace with actual notes icon
 import calendarIcon from '../assets/TaskManagement-icon/calendar.svg';
-import studyRoomIcon from '../assets/TaskManagement-icon/study-room.svg';
 import pomodoroIcon from '../assets/TaskManagement-icon/pomodoro.svg';
-import reportIcon from '../assets/TaskManagement-icon/report.svg';
-import adminIcon from '../assets/TaskManagement-icon/Admin Panel.svg';
-import helpIcon from '../assets/TaskManagement-icon/help.svg';
+import studyRoomIcon from '../assets/TaskManagement-icon/study-room.svg';
+import workspacesIcon from '../assets/TaskManagement-icon/dashboard.svg'; // Temporary, replace with actual workspaces icon
+import livestreamIcon from '../assets/TaskManagement-icon/calendar.svg'; // Temporary, replace with actual livestream icon
+import communityIcon from '../assets/TaskManagement-icon/people.svg'; // Temporary, using people icon
 
 const Sidebar = ({ activeTab, setActiveTab }) => {
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: dashboardIcon },
-    { id: 'people', label: 'People', icon: peopleIcon },
     { id: 'tasks', label: 'Tasks', icon: taskIcon },
+    { id: 'notes', label: 'Notes', icon: notesIcon },
     { id: 'calendar', label: 'Calendar', icon: calendarIcon },
-    { id: 'study-room', label: 'Study Room', icon: studyRoomIcon },
     { id: 'pomodoro', label: 'Pomodoro', icon: pomodoroIcon },
-    { id: 'reports', label: 'Reports', icon: reportIcon },
-    { id: 'admin', label: 'Admin Panel', icon: adminIcon },
-    { id: 'help', label: 'Help', icon: helpIcon },
+    { id: 'workspaces', label: 'Workspaces', icon: workspacesIcon },
+    { id: 'study-room', label: 'Study Room', icon: studyRoomIcon },
+    { id: 'livestream', label: 'Livestream', icon: livestreamIcon },
+    { id: 'community', label: 'Community', icon: communityIcon },
   ];
 
   return (
