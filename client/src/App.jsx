@@ -3,63 +3,31 @@ import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import TaskBoard from './components/TaskBoard';
 import Calendar from './components/Calendar';
+import LandingPage from './components/LandingPage';
+import Dashboard from './components/Dashboard';
+import Notes from './components/Notes';
 import './App.css';
 
 function App() {
-  const [activeTab, setActiveTab] = useState('tasks');
+  const [activeTab, setActiveTab] = useState('landing');
+
+  const handleGetStarted = () => {
+    setActiveTab('dashboard');
+  };
 
   return (
     <div className="app">
-      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+      {activeTab !== 'landing' && <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />}
       
-      <div className="main-content">
-        <Header />
+      <div className={`main-content ${activeTab === 'landing' ? 'full-width' : ''}`}>
+        {activeTab !== 'landing' && <Header />}
 
         <div className="content-area">
+          {activeTab === 'landing' && <LandingPage onGetStarted={handleGetStarted} />}
+          {activeTab === 'dashboard' && <Dashboard />}
           {activeTab === 'tasks' && <TaskBoard />}
-          {activeTab === 'dashboard' && (
-            <div className="placeholder">
-              <h2>📊 Dashboard</h2>
-              <p>Dashboard content coming soon...</p>
-            </div>
-          )}
-          {activeTab === 'people' && (
-            <div className="placeholder">
-              <h2>👥 People</h2>
-              <p>People management coming soon...</p>
-            </div>
-          )}
+          {activeTab === 'notes' && <Notes />}
           {activeTab === 'calendar' && <Calendar />}
-          {activeTab === 'study-room' && (
-            <div className="placeholder">
-              <h2>📚 Study Room</h2>
-              <p>Study room feature coming soon...</p>
-            </div>
-          )}
-          {activeTab === 'pomodoro' && (
-            <div className="placeholder">
-              <h2>⏱️ Pomodoro</h2>
-              <p>Pomodoro timer coming soon...</p>
-            </div>
-          )}
-          {activeTab === 'reports' && (
-            <div className="placeholder">
-              <h2>📈 Reports</h2>
-              <p>Reports and analytics coming soon...</p>
-            </div>
-          )}
-          {activeTab === 'admin' && (
-            <div className="placeholder">
-              <h2>⚙️ Admin Panel</h2>
-              <p>Admin panel coming soon...</p>
-            </div>
-          )}
-          {activeTab === 'help' && (
-            <div className="placeholder">
-              <h2>❓ Help</h2>
-              <p>Help and support coming soon...</p>
-            </div>
-          )}
         </div>
       </div>
     </div>

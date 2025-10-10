@@ -38,6 +38,14 @@ function TaskCard({ task }) {
         </div>
       )}
       
+      {task.tags && task.tags.length > 0 && (
+        <div className="task-tags-display">
+          {task.tags.map((tag, index) => (
+            <span key={index} className="task-tag-badge">#{tag}</span>
+          ))}
+        </div>
+      )}
+      
       {task.description && (
         <p className="task-description">{task.description}</p>
       )}

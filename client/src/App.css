@@ -26,10 +26,20 @@ body {
   overflow: hidden;
 }
 
+.main-content.full-width {
+  width: 100%;
+  margin-left: 0;
+}
+
 .content-area {
   flex: 1;
   overflow: auto;
   background-color: #f5f5f7;
+}
+
+/* Override background for Landing Page */
+.content-area:has(.landing-page) {
+  background-color: transparent;
 }
 
 .placeholder {

@@ -27,7 +27,6 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
 
   return (
     <div className="sidebar">
-      
       <nav className="sidebar-nav">
         {menuItems.map((item) => (
           <button

@@ -1,15 +1,21 @@
 .task-card {
   background: white;
-  border-radius: 8px;
-  padding: 12px;
+  border-radius: 10px;
+  padding: 14px;
   margin-bottom: 12px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
-  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
   cursor: pointer;
+  border: 2px solid transparent;
+  position: relative;
+  z-index: 1;
 }
 
 .task-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 20px rgba(14, 165, 233, 0.15);
+  border-color: #0ea5e9;
+  transform: translateY(-2px);
+  z-index: 10;
 }
 
 .task-header {
@@ -30,12 +36,30 @@
 
 .assignee-badge {
   display: inline-block;
-  padding: 4px 12px;
-  background-color: #0013fe;
+  padding: 5px 12px;
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
   color: white;
-  border-radius: 5px;
-  font-size: 15px;
+  border-radius: 6px;
+  font-size: 12px;
   font-weight: 600;
+  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.2);
+}
+
+.task-tags-display {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.task-tag-badge {
+  padding: 3px 8px;
+  background: linear-gradient(135deg, #e0f2fe, #f0f9ff);
+  color: #0284c7;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid #bae6fd;
 }
 
 .task-description {
