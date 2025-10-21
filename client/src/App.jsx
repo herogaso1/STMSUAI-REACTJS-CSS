@@ -8,6 +8,7 @@ import TaskBoard from "./components/TaskBoard";
 import Notes from "./components/Notes";
 import Calendar from "./components/Calendar";
 import Pomodoro from "./components/Pomodoro";
+import AIAssistant from "./components/AIAssistant";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import "./App.css";
@@ -24,6 +25,7 @@ const AppLayout = ({ activeTab, setActiveTab, onLogout }) => (
         {activeTab === "notes" && <Notes />}
         {activeTab === "calendar" && <Calendar />}
         {activeTab === "pomodoro" && <Pomodoro />}
+        {activeTab === "ai" && <AIAssistant />}
       </div>
     </div>
   </div>
