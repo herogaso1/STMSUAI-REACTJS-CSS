@@ -1,0 +1,73 @@
+.pomodoro-container {
+  text-align: center;
+  margin-top: 50px;
+  color: #333;
+}
+
+.pomodoro-header h1 {
+  color: #3b5bdb;
+  margin-bottom: 20px;
+}
+
+.pomodoro-circle {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin: 0 auto;
+}
+
+.pomodoro-time {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.pomodoro-time h2 {
+  font-size: 48px;
+  margin: 0;
+}
+
+.pomodoro-time p {
+  color: #666;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.pomodoro-controls {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.pomodoro-controls button {
+  border: none;
+  background: #f1f1f1;
+  font-size: 20px;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pomodoro-controls button:hover {
+  background: #d0d0ff;
+}
+
+.main-btn {
+  background: #3b5bdb;
+  color: white;
+}
+
+.pomodoro-cycle {
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.pomodoro-footer {
+  margin-top: 30px;
+  font-size: 13px;
+  color: #777;
+}
