@@ -38,7 +38,7 @@ const Dashboard = () => {
     { id: 1, text: 'Hoàn thành 4 Pomodoro sessions', time: '10 phút trước', icon: '✅' },
     { id: 2, text: 'Tham gia Study Room "Web Dev"', time: '1 giờ trước', icon: '📚' },
     { id: 3, text: 'Đạt mốc 7 ngày học liên tục', time: '2 giờ trước', icon: '🔥' },
-    { id: 4, text: 'Chia sẻ note trong Community', time: '5 giờ trước', icon: '💡' }
+    { id: 4, text: 'Tạo ghi chú mới "React Hooks"', time: '5 giờ trước', icon: '💡' }
   ];
 
   const motivationalQuotes = [

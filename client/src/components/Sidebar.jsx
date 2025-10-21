@@ -7,8 +7,6 @@ import calendarIcon from '../assets/TaskManagement-icon/calendar.svg';
 import pomodoroIcon from '../assets/TaskManagement-icon/pomodoro.svg';
 import studyRoomIcon from '../assets/TaskManagement-icon/study-room.svg';
 import workspacesIcon from '../assets/TaskManagement-icon/dashboard.svg'; // Temporary, replace with actual workspaces icon
-import livestreamIcon from '../assets/TaskManagement-icon/calendar.svg'; // Temporary, replace with actual livestream icon
-import communityIcon from '../assets/TaskManagement-icon/people.svg'; // Temporary, using people icon
 import aiIcon from '../assets/TaskManagement-icon/search.svg'; // Temporary, using search icon for AI
 
 const Sidebar = ({ activeTab, setActiveTab }) => {
@@ -21,8 +19,6 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
     { id: 'ai', label: 'AI Assistant', icon: aiIcon },
     { id: 'workspaces', label: 'Workspaces', icon: workspacesIcon },
     { id: 'study-room', label: 'Study Room', icon: studyRoomIcon },
-    { id: 'livestream', label: 'Livestream', icon: livestreamIcon },
-    { id: 'community', label: 'Community', icon: communityIcon },
   ];
 
   return (
