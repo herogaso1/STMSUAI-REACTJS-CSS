@@ -42,6 +42,9 @@
   line-height: 1.6;
 }
 .hero-buttons {
+  justify-content: center;
+  display: flex;
+  align-items: center;
   margin-top: 30px;
 }
 .btn-primary {
