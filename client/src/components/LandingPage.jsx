@@ -1,7 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./LandingPage.css";
 
-const LandingPage = ({ onGetStarted }) => {
+const LandingPage = () => {
+  const navigate = useNavigate();
+
   const features = [
     {
       icon: "⏰",
@@ -37,10 +40,12 @@ const LandingPage = ({ onGetStarted }) => {
             nuôi dưỡng kỷ luật cá nhân bằng Pomodoro và AI.
           </p>
           <div className="hero-buttons">
-            <button className="btn-primary" onClick={onGetStarted}>
-              🚀 Bắt đầu hành trình
+            <button className="btn-primary" onClick={() => navigate("/login")}>
+              🚀 Đăng nhập
             </button>
-            <button className="btn-outline">Xem trước nền tảng</button>
+            <button className="btn-outline" onClick={() => navigate("/register")}>
+              ✨ Đăng ký miễn phí
+            </button>
           </div>
         </div>
       </section>
@@ -74,7 +79,7 @@ const LandingPage = ({ onGetStarted }) => {
             Từng phút giây bạn tập trung hôm nay — là nền tảng cho phiên bản
             xuất sắc của bạn ngày mai.
           </p>
-          <button className="btn-cta" onClick={onGetStarted}>
+          <button className="btn-cta" onClick={() => navigate("/register")}>
             Bắt đầu miễn phí →
           </button>
         </div>

@@ -12,15 +12,15 @@ const Login = ({ onLoginSuccess }) => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (formData.email && formData.password) {
-      onLoginSuccess();
-      navigate("/landing");
-    } else {
-      alert("Vui lòng nhập đầy đủ thông tin!");
-    }
-  };
+  if (formData.email && formData.password) {
+    onLoginSuccess();
+    navigate("/dashboard"); // ✅ vào dashboard sau khi login thành công
+  } else {
+    alert("Vui lòng nhập đầy đủ thông tin!");
+  }
+};
 
   return (
     <div className="auth-container">

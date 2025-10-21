@@ -13,11 +13,24 @@ body {
   background-color: #ffffff;
 }
 
-.app {
+/* .app {
   height: auto;
   overflow: hidden;
+} */
+
+/* Layout chính cho dashboard */
+.app-layout {
+  display: flex;
+  height: auto;
+  background: #f9fafb;
 }
 
+/* Layout riêng cho login / register / landing */
+.auth-layout {
+  height: auto;
+  max-width: 100%;
+  background: #fff; /* hoặc gradient riêng */
+}
 .main-content {
   flex: 1;
   display: flex;
