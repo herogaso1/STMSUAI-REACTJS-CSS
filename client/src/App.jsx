@@ -12,21 +12,28 @@ import Pomodoro from "./components/Pomodoro";
 import AIAssistant from "./components/AIAssistant";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
+import Profile from "./components/Profile"; // 👤 Thêm component Hồ sơ
 import "./App.css";
 
 // 🧩 Layout chính cho user sau khi đăng nhập
-const AppLayout = ({ activeTab, setActiveTab, onLogout }) => (
+const AppLayout = ({ activeTab, setActiveTab, onLogout, children }) => (
   <div className="app-layout">
     <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} onLogout={onLogout} />
     <div className="main-content">
       <Header />
       <div className="content-area">
-        {activeTab === "dashboard" && <Dashboard />}
-        {activeTab === "tasks" && <TaskBoard />}
-        {activeTab === "notes" && <Notes />}
-        {activeTab === "calendar" && <Calendar />}
-        {activeTab === "pomodoro" && <Pomodoro />}
-        {activeTab === "ai" && <AIAssistant />}
+        {children ? (
+          children
+        ) : (
+          <>
+            {activeTab === "dashboard" && <Dashboard />}
+            {activeTab === "tasks" && <TaskBoard />}
+            {activeTab === "notes" && <Notes />}
+            {activeTab === "calendar" && <Calendar />}
+            {activeTab === "pomodoro" && <Pomodoro />}
+            {activeTab === "ai" && <AIAssistant />}
+          </>
+        )}
       </div>
     </div>
   </div>
@@ -126,6 +133,24 @@ function App() {
               <DashboardAdmin />
             ) : (
               <Navigate to="/" />
+            )
+          }
+        />
+
+        {/* 👤 Trang hồ sơ */}
+        <Route
+          path="/profile"
+          element={
+            isLoggedIn ? (
+              <AppLayout
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+                onLogout={handleLogout}
+              >
+                <Profile />
+              </AppLayout>
+            ) : (
+              <Navigate to="/login" />
             )
           }
         />

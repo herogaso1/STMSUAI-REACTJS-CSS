@@ -1,8 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './AIAssistant.css';
 
 const AIAssistant = () => {
+  const [messages, setMessages] = useState([
+    {
+      id: 1,
+      sender: 'ai',
+      text: 'Xin chào! 👋 Tôi có thể giúp bạn:\n• Tạo task nhanh\n• Phân tích công việc\n• Lên lịch thông minh\n• Gợi ý ưu tiên',
+      time: getTime()
+    }
+  ]);
   const [inputValue, setInputValue] = useState('');
+  const [loading, setLoading] = useState(false);
+  const chatEndRef = useRef(null);
+
+  // Cuộn xuống cuối chat
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, loading]);
+
+  function getTime() {
+    const now = new Date();
+    return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+
+  // Gửi tin nhắn
+  const sendMessage = async (text) => {
+    if (!text.trim()) return;
+
+    const userMsg = { id: Date.now(), sender: 'user', text, time: getTime() };
+    setMessages(prev => [...prev, userMsg]);
+    setInputValue('');
+    setLoading(true);
+
+    try {
+      const res = await fetch('http://localhost:5000/api/ai-chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text })
+      });
+
+      const data = await res.json();
+      const aiMsg = {
+        id: Date.now() + 1,
+        sender: 'ai',
+        text: data.reply || 'Xin lỗi, tôi chưa hiểu 😅',
+        time: getTime()
+      };
+      setMessages(prev => [...prev, aiMsg]);
+    } catch (error) {
+      setMessages(prev => [
+        ...prev,
+        { id: Date.now() + 2, sender: 'ai', text: '⚠️ Server không phản hồi', time: getTime() }
+      ]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Enter gửi tin nhắn
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      sendMessage(inputValue);
+    }
+  };
 
   // Quick actions
   const quickActions = [
@@ -10,16 +72,6 @@ const AIAssistant = () => {
     { id: 2, icon: '📅', text: 'Lên lịch' },
     { id: 3, icon: '🎯', text: 'Ưu tiên' },
     { id: 4, icon: '💡', text: 'Gợi ý' }
-  ];
-
-  // Sample messages for UI display only
-  const sampleMessages = [
-    {
-      id: 1,
-      type: 'ai',
-      text: 'Xin chào! 👋 Tôi có thể giúp bạn:\n\n• Tạo task nhanh\n• Phân tích công việc\n• Lên lịch thông minh\n• Gợi ý ưu tiên',
-      time: '10:30'
-    }
   ];
 
   return (
@@ -46,6 +98,7 @@ const AIAssistant = () => {
             <button
               key={action.id}
               className="quick-btn"
+              onClick={() => sendMessage(action.text)}
             >
               <span>{action.icon}</span>
               <span>{action.text}</span>
@@ -55,17 +108,29 @@ const AIAssistant = () => {
 
         {/* Chat Messages */}
         <div className="chat-area">
-          {sampleMessages.map(message => (
-            <div key={message.id} className={`msg ${message.type}`}>
-              <div className="msg-avatar">{message.type === 'ai' ? '🤖' : '👤'}</div>
+          {messages.map(msg => (
+            <div key={msg.id} className={`msg ${msg.sender}`}>
+              <div className="msg-avatar">{msg.sender === 'ai' ? '🤖' : '👤'}</div>
               <div className="msg-body">
                 <div className="msg-bubble">
-                  <p>{message.text}</p>
+                  <p>{msg.text}</p>
                 </div>
-                <span className="msg-time">{message.time}</span>
+                <span className="msg-time">{msg.time}</span>
               </div>
             </div>
           ))}
+
+          {loading && (
+            <div className="msg ai">
+              <div className="msg-avatar">🤖</div>
+              <div className="msg-body">
+                <div className="msg-bubble typing">
+                  <span></span><span></span><span></span>
+                </div>
+              </div>
+            </div>
+          )}
+          <div ref={chatEndRef}></div>
         </div>
 
         {/* Input Area */}
@@ -76,10 +141,12 @@ const AIAssistant = () => {
             placeholder="Nhập tin nhắn..."
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={handleKeyPress}
           />
           <button
             className="send-btn"
-            disabled={!inputValue.trim()}
+            disabled={!inputValue.trim() || loading}
+            onClick={() => sendMessage(inputValue)}
           >
             ➤
           </button>
