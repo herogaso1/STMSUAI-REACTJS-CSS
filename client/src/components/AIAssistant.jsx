@@ -81,7 +81,7 @@ const AIAssistant = () => {
               <img src={aiLogo} alt="AI Icon" className="ai-logo" />
             </div>
             <div>
-              <h2>AI Assistant</h2>
+              <h2>MiMi AI ChatBot</h2>
               <p>Trợ lý quản lý công việc</p>
             </div>
           </div>
