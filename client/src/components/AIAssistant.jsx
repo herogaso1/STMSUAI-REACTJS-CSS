@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './AIAssistant.css';
+import aiLogo from '../assets/Trangchu/art8.png';
 
 const AIAssistant = () => {
   const [messages, setMessages] = useState([
     {
       id: 1,
       sender: 'ai',
-      text: 'Xin chào! 👋 Tôi có thể giúp bạn:\n• Tạo task nhanh\n• Phân tích công việc\n• Lên lịch thông minh\n• Gợi ý ưu tiên',
+      text: 'Trợ thủ MIMI ChatBot xin chào! 👋 Tôi có thể giúp bạn:\n• Tạo task nhanh\n• Phân tích công việc\n• Lên lịch thông minh\n• Hãy cho tôi biết bạn cần trợ giúp gì!',
       time: getTime()
     }
   ]);
@@ -14,17 +15,15 @@ const AIAssistant = () => {
   const [loading, setLoading] = useState(false);
   const chatEndRef = useRef(null);
 
-  // Cuộn xuống cuối chat
-  useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, loading]);
-
   function getTime() {
     const now = new Date();
     return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   }
 
-  // Gửi tin nhắn
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, loading]);
+
   const sendMessage = async (text) => {
     if (!text.trim()) return;
 
@@ -58,7 +57,6 @@ const AIAssistant = () => {
     }
   };
 
-  // Enter gửi tin nhắn
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -66,7 +64,6 @@ const AIAssistant = () => {
     }
   };
 
-  // Quick actions
   const quickActions = [
     { id: 1, icon: '✍️', text: 'Tạo task' },
     { id: 2, icon: '📅', text: 'Lên lịch' },
@@ -80,7 +77,9 @@ const AIAssistant = () => {
         {/* Header */}
         <div className="ai-header">
           <div className="ai-header-left">
-            <div className="ai-icon">🤖</div>
+            <div className="ai-icon">
+              <img src={aiLogo} alt="AI Icon" className="ai-logo" />
+            </div>
             <div>
               <h2>AI Assistant</h2>
               <p>Trợ lý quản lý công việc</p>
@@ -110,7 +109,13 @@ const AIAssistant = () => {
         <div className="chat-area">
           {messages.map(msg => (
             <div key={msg.id} className={`msg ${msg.sender}`}>
-              <div className="msg-avatar">{msg.sender === 'ai' ? '🤖' : '👤'}</div>
+              <div className="msg-avatar">
+                {msg.sender === 'ai' ? (
+                  <img src={aiLogo} alt="AI Avatar" className="avatar-img" />
+                ) : (
+                  '👤'
+                )}
+              </div>
               <div className="msg-body">
                 <div className="msg-bubble">
                   <p>{msg.text}</p>
@@ -122,7 +127,9 @@ const AIAssistant = () => {
 
           {loading && (
             <div className="msg ai">
-              <div className="msg-avatar">🤖</div>
+              <div className="msg-avatar">
+                <img src={aiLogo} alt="AI Avatar" className="avatar-img" />
+              </div>
               <div className="msg-body">
                 <div className="msg-bubble typing">
                   <span></span><span></span><span></span>

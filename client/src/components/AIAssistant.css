@@ -378,3 +378,22 @@
     font-size: 13px;
   }
 }
+.ai-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ai-logo {
+  width: 48px;          /* kích thước icon */
+  height: 48px;
+  border-radius: 50%;   /* bo tròn ảnh */
+  object-fit: cover;    /* ảnh luôn vừa khung */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.avatar-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
