@@ -6,21 +6,33 @@ import loginArt from "../assets/DangNhap/login-art.png";
 const Login = ({ onLoginSuccess }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
-  e.preventDefault();
+    e.preventDefault();
+    const { email, password } = formData;
 
-  if (formData.email && formData.password) {
-    onLoginSuccess();
-    navigate("/dashboard"); // ✅ vào dashboard sau khi login thành công
-  } else {
-    alert("Vui lòng nhập đầy đủ thông tin!");
-  }
-};
+    // ✅ Kiểm tra admin
+    if (email === "admin" && password === "123456") {
+      localStorage.setItem("role", "admin");
+      onLoginSuccess();
+      navigate("/dashboard");
+      return;
+    }
+
+    // ✅ User thường
+    if (email && password) {
+      localStorage.setItem("role", "user");
+      onLoginSuccess();
+      navigate("/dashboard");
+    } else {
+      setError("Vui lòng nhập đầy đủ thông tin!");
+    }
+  };
 
   return (
     <div className="auth-container">
@@ -28,13 +40,15 @@ const Login = ({ onLoginSuccess }) => {
         <div className="auth-left">
           <img src={loginArt} alt="Login Illustration" className="auth-img" />
         </div>
+
         <div className="auth-right">
           <form onSubmit={handleSubmit}>
             <h2>Đăng nhập</h2>
+
             <input
-              type="email"
+              type="text"
               name="email"
-              placeholder="Email"
+              placeholder="Tên đăng nhập hoặc email"
               onChange={handleChange}
               required
             />
@@ -45,7 +59,11 @@ const Login = ({ onLoginSuccess }) => {
               onChange={handleChange}
               required
             />
+
+            {error && <p className="error">{error}</p>}
+
             <button type="submit">Đăng nhập</button>
+
             <p>
               Chưa có tài khoản?{" "}
               <a href="/register" className="auth-link">

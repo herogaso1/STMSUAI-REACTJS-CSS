@@ -4,6 +4,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import LandingPage from "./components/LandingPage";
 import Dashboard from "./components/Dashboard";
+import DashboardAdmin from "./components/DashboardAdmin";
 import TaskBoard from "./components/TaskBoard";
 import Notes from "./components/Notes";
 import Calendar from "./components/Calendar";
@@ -13,7 +14,7 @@ import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import "./App.css";
 
-// 🧩 Layout tách biệt cho phần chính sau khi đăng nhập
+// 🧩 Layout chính cho user sau khi đăng nhập
 const AppLayout = ({ activeTab, setActiveTab, onLogout }) => (
   <div className="app-layout">
     <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} onLogout={onLogout} />
@@ -32,29 +33,33 @@ const AppLayout = ({ activeTab, setActiveTab, onLogout }) => (
 );
 
 // 🪞 Layout cho các trang ngoài (login, register, landing)
-const AuthLayout = ({ children }) => (
-  <div className="auth-layout">
-    {children}
-  </div>
-);
+const AuthLayout = ({ children }) => <div className="auth-layout">{children}</div>;
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [activeTab, setActiveTab] = useState("dashboard");
 
   const handleLoginSuccess = () => setIsLoggedIn(true);
-  const handleLogout = () => setIsLoggedIn(false);
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem("role");
+  };
+
+  const userRole = localStorage.getItem("role");
 
   return (
     <Router>
       <Routes>
-
-        {/* 🌅 Landing Page */}
+        {/* 🌅 Trang Landing */}
         <Route
           path="/"
           element={
             isLoggedIn ? (
-              <Navigate to="/dashboard" />
+              userRole === "admin" ? (
+                <Navigate to="/dashboard-admin" />
+              ) : (
+                <Navigate to="/dashboard" />
+              )
             ) : (
               <AuthLayout>
                 <LandingPage />
@@ -63,12 +68,16 @@ function App() {
           }
         />
 
-        {/* 🔑 Login / Register */}
+        {/* 🔑 Login */}
         <Route
           path="/login"
           element={
             isLoggedIn ? (
-              <Navigate to="/dashboard" />
+              userRole === "admin" ? (
+                <Navigate to="/dashboard-admin" />
+              ) : (
+                <Navigate to="/dashboard" />
+              )
             ) : (
               <AuthLayout>
                 <Login onLoginSuccess={handleLoginSuccess} />
@@ -76,6 +85,8 @@ function App() {
             )
           }
         />
+
+        {/* 📝 Register */}
         <Route
           path="/register"
           element={
@@ -89,23 +100,37 @@ function App() {
           }
         />
 
-        {/* 🧭 Dashboard sau khi login */}
+        {/* 👤 Dashboard cho user */}
         <Route
           path="/dashboard"
           element={
-            isLoggedIn ? (
+            isLoggedIn && userRole === "user" ? (
               <AppLayout
                 activeTab={activeTab}
                 setActiveTab={setActiveTab}
                 onLogout={handleLogout}
               />
+            ) : userRole === "admin" ? (
+              <Navigate to="/dashboard-admin" />
             ) : (
               <Navigate to="/" />
             )
           }
         />
 
-        {/* Route sai → quay về Landing */}
+        {/* 🧠 Dashboard riêng cho admin */}
+        <Route
+          path="/dashboard-admin"
+          element={
+            isLoggedIn && userRole === "admin" ? (
+              <DashboardAdmin />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
+
+        {/* ❌ Route không tồn tại */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
