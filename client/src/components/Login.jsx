@@ -10,27 +10,57 @@ const Login = ({ onLoginSuccess }) => {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setError(""); // Xóa lỗi khi người dùng bắt đầu nhập lại
   };
 
-  const handleSubmit = (e) => {
+  // 1. Biến hàm này thành "async" để dùng "await"
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(""); // Xóa lỗi cũ
     const { email, password } = formData;
 
-    // ✅ Kiểm tra admin
+    if (!email || !password) {
+      setError("Vui lòng nhập đầy đủ thông tin!");
+      return;
+    }
+
+    // ✅ Kiểm tra admin (Giữ lại logic cũ của bạn)
     if (email === "admin" && password === "123456") {
       localStorage.setItem("role", "admin");
+      localStorage.setItem("user", JSON.stringify({ username: "Admin" })); // Thêm user cho admin
       onLoginSuccess();
       navigate("/dashboard");
       return;
     }
 
-    // ✅ User thường
-    if (email && password) {
-      localStorage.setItem("role", "user");
-      onLoginSuccess();
-      navigate("/dashboard");
-    } else {
-      setError("Vui lòng nhập đầy đủ thông tin!");
+    // ✅ 2. Logic đăng nhập user thường (GỌI API)
+    try {
+      const res = await fetch("http://localhost:5000/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        // Đăng nhập thành công
+        localStorage.setItem("role", "user");
+        // Lưu thông tin user vào localStorage
+        localStorage.setItem("user", JSON.stringify(data.user)); 
+        onLoginSuccess();
+        navigate("/dashboard");
+      } else {
+        // Sai tài khoản, mật khẩu hoặc lỗi server
+        setError(data.message || "Đã xảy ra lỗi");
+      }
+    } catch (error) {
+      // Lỗi mạng, không kết nối được server
+      console.error("Lỗi đăng nhập:", error);
+      setError("Không thể kết nối đến máy chủ!");
     }
   };
 
@@ -46,9 +76,9 @@ const Login = ({ onLoginSuccess }) => {
             <h2>Đăng nhập</h2>
 
             <input
-              type="text"
+              type="text" // Đổi từ "text" thành "email" sẽ tốt hơn cho trình duyệt
               name="email"
-              placeholder="Tên đăng nhập hoặc email"
+              placeholder="Email" // Sửa placeholder
               onChange={handleChange}
               required
             />
@@ -63,12 +93,6 @@ const Login = ({ onLoginSuccess }) => {
             {error && <p className="error">{error}</p>}
 
             <button type="submit">Đăng nhập</button>
-
-            <p className="forgot-password-link">
-              <a href="/forgot-password" className="auth-link">
-                Quên mật khẩu?
-              </a>
-            </p>
 
             <p>
               Chưa có tài khoản?{" "}

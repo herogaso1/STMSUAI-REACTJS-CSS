@@ -76,20 +76,26 @@ def get_users():
 @app.route('/api/register', methods=['POST'])
 def register():
     data = request.get_json()
-    name = data.get("name")
+    # FIX 1: Đổi "name" thành "username" để khớp với React
+    username = data.get("username")
     email = data.get("email")
     password = data.get("password")
 
-    if not all([name, email, password]):
-        return jsonify({"error": "Thiếu thông tin đăng ký!"}), 400
+    # FIX 2: Kiểm tra "username" thay vì "name"
+    if not all([username, email, password]):
+        # FIX 3: Đổi "error" thành "message"
+        return jsonify({"message": "Thiếu thông tin đăng ký!"}), 400
 
     db = next(get_db())
     existing_user = db.query(User).filter_by(email=email).first()
     if existing_user:
-        return jsonify({"error": "Email đã tồn tại!"}), 400
+        # FIX 4: Đổi "error" thành "message"
+        return jsonify({"message": "Email đã tồn tại!"}), 400
 
     hashed_pw = generate_password_hash(password)
-    new_user = User(username=name, email=email, password=hashed_pw)
+    # FIX 5: Sửa "username=name" thành "username=username"
+    # FIX 6: Sửa "password=hashed_pw" thành "password_hash=hashed_pw" (quan trọng)
+    new_user = User(username=username, email=email, password_hash=hashed_pw)
     db.add(new_user)
     db.commit()
 
@@ -103,13 +109,16 @@ def login():
     password = data.get("password")
 
     if not all([email, password]):
-        return jsonify({"error": "Thiếu email hoặc mật khẩu!"}), 400
+        # FIX 7: Đổi "error" thành "message"
+        return jsonify({"message": "Thiếu email hoặc mật khẩu!"}), 400
 
     db = next(get_db())
     user = db.query(User).filter_by(email=email).first()
 
-    if not user or not check_password_hash(user.password, password):
-        return jsonify({"error": "Sai email hoặc mật khẩu!"}), 401
+    # FIX 8: Sửa "user.password" thành "user.password_hash" (quan trọng)
+    if not user or not check_password_hash(user.password_hash, password):
+        # FIX 9: Đổi "error" thành "message"
+        return jsonify({"message": "Sai email hoặc mật khẩu!"}), 401
 
     return jsonify({
         "message": "Đăng nhập thành công!",
