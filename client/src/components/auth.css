@@ -99,6 +99,54 @@
   text-decoration: underline;
 }
 
+/* Error and Success Messages */
+.error {
+  color: #e74c3c;
+  font-size: 14px;
+  text-align: center;
+  margin: 5px 0;
+  padding: 10px;
+  background: #fdecea;
+  border-radius: 8px;
+  border: 1px solid #f5c6cb;
+}
+
+.success {
+  color: #27ae60;
+  font-size: 14px;
+  text-align: center;
+  margin: 5px 0;
+  padding: 10px;
+  background: #d4edda;
+  border-radius: 8px;
+  border: 1px solid #c3e6cb;
+}
+
+/* Forgot Password Specific Styles */
+.forgot-password-description {
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.forgot-password-link {
+  text-align: center;
+  margin: 5px 0;
+}
+
+.auth-right button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.auth-right button:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .auth-box {

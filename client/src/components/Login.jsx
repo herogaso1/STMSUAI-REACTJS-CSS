@@ -64,6 +64,12 @@ const Login = ({ onLoginSuccess }) => {
 
             <button type="submit">Đăng nhập</button>
 
+            <p className="forgot-password-link">
+              <a href="/forgot-password" className="auth-link">
+                Quên mật khẩu?
+              </a>
+            </p>
+
             <p>
               Chưa có tài khoản?{" "}
               <a href="/register" className="auth-link">

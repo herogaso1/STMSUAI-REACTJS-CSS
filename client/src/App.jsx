@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import ForgotPassword from "./components/ForgotPassword";
 import LandingPage from "./components/LandingPage";
 import Dashboard from "./components/Dashboard";
 import DashboardAdmin from "./components/DashboardAdmin";
@@ -13,6 +14,7 @@ import AIAssistant from "./components/AIAssistant";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import Profile from "./components/Profile"; // 👤 Thêm component Hồ sơ
+import ChangePassword from "./components/ChangePassword"; // 🔐 Thêm component Đổi mật khẩu
 import "./App.css";
 
 // 🧩 Layout chính cho user sau khi đăng nhập
@@ -107,7 +109,21 @@ function App() {
           }
         />
 
-        {/* 👤 Dashboard cho user */}
+        {/* � Forgot Password */}
+        <Route
+          path="/forgot-password"
+          element={
+            isLoggedIn ? (
+              <Navigate to="/dashboard" />
+            ) : (
+              <AuthLayout>
+                <ForgotPassword />
+              </AuthLayout>
+            )
+          }
+        />
+
+        {/* �👤 Dashboard cho user */}
         <Route
           path="/dashboard"
           element={
@@ -148,6 +164,24 @@ function App() {
                 onLogout={handleLogout}
               >
                 <Profile />
+              </AppLayout>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        {/* 🔐 Trang đổi mật khẩu */}
+        <Route
+          path="/change-password"
+          element={
+            isLoggedIn ? (
+              <AppLayout
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+                onLogout={handleLogout}
+              >
+                <ChangePassword />
               </AppLayout>
             ) : (
               <Navigate to="/login" />

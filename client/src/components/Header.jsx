@@ -63,6 +63,15 @@ function Header({ onLogout }) {
             <div
               className="dropdown-item"
               onClick={() => {
+                navigate("/change-password");
+                setShowUserMenu(false);
+              }}
+            >
+              🔐 Đổi mật khẩu
+            </div>
+            <div
+              className="dropdown-item"
+              onClick={() => {
                 navigate("/settings");
                 setShowUserMenu(false);
               }}
