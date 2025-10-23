@@ -1,21 +1,22 @@
 .task-card {
-  background: white;
+  background: var(--bg-secondary-color); /* Use secondary background */
   border-radius: 10px;
   padding: 14px;
-  margin-bottom: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 12px; /* Keep margin */
+  box-shadow: 0 2px 8px var(--shadow-color); /* Use shadow variable */
   transition: all 0.3s ease;
   cursor: pointer;
-  border: 2px solid transparent;
+  border: 1px solid var(--border-color); /* Use border variable */
   position: relative;
   z-index: 1;
 }
 
 .task-card:hover {
-  box-shadow: 0 8px 20px rgba(14, 165, 233, 0.15);
-  border-color: #0ea5e9;
+  box-shadow: 0 8px 20px var(--shadow-color); /* Use shadow variable */
+  border-color: var(--primary-color); /* Use primary color */
   transform: translateY(-2px);
-  z-index: 10;
+  z-index: 10; /* Keep z-index for hover */
+  background-color: var(--bg-color); /* Slightly different background on hover */
 }
 
 .task-header {
@@ -25,9 +26,13 @@
 .task-title {
   font-size: 14px;
   font-weight: 600;
-  color: #1f2937;
+  color: var(--text-color); /* Use text color */
   margin: 0 0 10px 0;
   line-height: 1.4;
+  transition: color 0.3s ease;
+}
+.task-card:hover .task-title {
+    color: var(--primary-color); /* Highlight title on hover */
 }
 
 .task-assignee {
@@ -37,12 +42,13 @@
 .assignee-badge {
   display: inline-block;
   padding: 5px 12px;
-  background: linear-gradient(135deg, #0ea5e9, #0284c7);
-  color: white;
+  /* Keep accent gradient for assignee */
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white; /* Keep white text */
   border-radius: 6px;
   font-size: 12px;
   font-weight: 600;
-  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.2);
+  box-shadow: 0 2px 8px var(--shadow-color); /* Use shadow variable */
 }
 
 .task-tags-display {
@@ -54,26 +60,29 @@
 
 .task-tag-badge {
   padding: 3px 8px;
-  background: linear-gradient(135deg, #e0f2fe, #f0f9ff);
-  color: #0284c7;
+  /* Use subtle background and accent border/text */
+  background-color: var(--bg-color);
+  color: var(--secondary-color); /* Use secondary color for tag text */
   border-radius: 5px;
   font-size: 11px;
   font-weight: 600;
-  border: 1px solid #bae6fd;
+  border: 1px solid var(--secondary-color); /* Use secondary color for border */
+  transition: all 0.3s ease;
 }
 
 .task-description {
   font-size: 12px;
-  color: #6b7280;
+  color: var(--text-secondary-color); /* Use secondary text color */
   line-height: 1.6;
   margin: 0 0 12px 0;
   display: -webkit-box;
   -webkit-line-clamp: 3;
-  line-clamp: 3;
+  line-clamp: 3; /* Standard property */
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-height: 3.6em;
+  /* max-height: 3.6em; */ /* line-clamp should handle height */
+  transition: color 0.3s ease;
 }
 
 .task-footer {
@@ -82,8 +91,9 @@
   align-items: center;
   margin-top: 10px;
   padding-top: 10px;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--border-color); /* Use border variable */
   gap: 8px;
+  transition: border-color 0.3s ease;
 }
 
 .task-meta {
@@ -94,86 +104,77 @@
   flex: 1;
 }
 
-.task-icon {
+.task-icon { /* Might be for comments/attachments count? */
   font-size: 11px;
-  color: #1d2d35;
+  color: var(--text-secondary-color); /* Use secondary text color */
   display: flex;
   align-items: center;
   gap: 3px;
   font-weight: 500;
+  transition: color 0.3s ease;
 }
 
-.meta-icon {
+.meta-icon { /* The actual icon within .task-icon */
   width: 12px;
   height: 12px;
   min-width: 12px;
-  opacity: 0.6;
+  opacity: 0.7; /* Slightly increased opacity */
   flex-shrink: 0;
+  color: currentColor; /* Inherit color */
 }
 
 .task-date {
   font-size: 12px;
-  color: #6b7280;
+  color: var(--text-secondary-color); /* Use secondary text color */
   display: flex;
   align-items: center;
   gap: 4px;
+  transition: color 0.3s ease;
 }
+.task-date svg { /* Ensure icon color matches text */
+    color: currentColor;
+    opacity: 0.7;
+}
+
 
 .task-avatars {
   display: flex;
   align-items: center;
-  margin-left: auto;
+  /* margin-left: auto; */ /* Let flexbox handle spacing */
 }
 
 .avatar {
-  min-width: 24px;
-  max-width: 28px;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid white;
-  margin-left: -6px;
-  background-color: #f3f4f6;
+  min-width: 24px; max-width: 28px; width: 24px; height: 24px;
+  border-radius: 50%; object-fit: cover;
+  border: 2px solid var(--bg-secondary-color); /* Border matches card background */
+  margin-left: -8px; /* Slightly more overlap */
+  background-color: var(--bg-color); /* Fallback background */
   flex-shrink: 0;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
 }
+.task-card:hover .avatar {
+    border-color: var(--bg-color); /* Border matches hover background */
+}
+
 
 .avatar:first-child {
   margin-left: 0;
 }
 
-.priority-flag {
-  width: 14px;
-  height: 14px;
-  min-width: 14px;
-  object-fit: contain;
-  flex-shrink: 0;
-  margin: 0;
+.priority-flag { /* Assume this is for high/medium/low icons */
+  width: 14px; height: 14px; min-width: 14px;
+  object-fit: contain; flex-shrink: 0; margin: 0;
+  /* Color should be set based on priority in the component */
 }
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
-  .task-card {
-    padding: 10px;
-  }
-
-  .task-title {
-    font-size: 13px;
-  }
-
-  .task-description {
-    font-size: 11px;
-  }
+  .task-card { padding: 10px; }
+  .task-title { font-size: 13px; }
+  .task-description { font-size: 11px; }
 }
 
 @media (max-width: 768px) {
-  .task-footer {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-
-  .task-avatars {
-    margin-left: 0;
-  }
+  .task-footer { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .task-avatars { margin-left: 0; margin-top: 5px; /* Add margin when stacked */ }
 }

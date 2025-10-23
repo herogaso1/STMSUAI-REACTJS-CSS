@@ -1,0 +1,108 @@
+/* src/components/Settings.css */
+
+.settings-container {
+  padding: 30px;
+  max-width: 800px; /* Giới hạn chiều rộng */
+  margin: 20px auto; /* Căn giữa */
+  background-color: var(--bg-secondary-color); /* Dùng biến màu nền phụ */
+  border-radius: 12px;
+  box-shadow: 0 4px 15px var(--shadow-color); /* Dùng biến màu đổ bóng */
+}
+
+.settings-container h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: var(--text-color); /* Dùng biến màu chữ */
+  border-bottom: 1px solid var(--border-color); /* Dùng biến màu viền */
+  padding-bottom: 15px;
+}
+
+.setting-section {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px dashed var(--border-color); /* Dùng biến màu viền */
+}
+.setting-section:last-child {
+  border-bottom: none; /* Bỏ viền cho mục cuối */
+  margin-bottom: 0;
+}
+
+.setting-section h2 {
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  color: var(--text-secondary-color); /* Dùng biến màu chữ phụ */
+}
+
+/* Kiểu cho nút Theme */
+.theme-toggle {
+  display: flex;
+  gap: 15px;
+}
+
+.theme-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-color: var(--bg-color); /* Nền nút dùng màu nền chính */
+  color: var(--text-secondary-color);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.theme-btn:hover {
+  background-color: var(--bg-secondary-color);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.theme-btn.active {
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 10px rgba(118, 75, 162, 0.3); /* Bóng mờ màu gradient */
+}
+
+/* Kiểu cho Dropdown Ngôn ngữ */
+.language-select {
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-secondary-color);
+  color: var(--text-color);
+  font-size: 1rem;
+  min-width: 150px; /* Độ rộng tối thiểu */
+}
+.language-select:focus {
+   outline: none;
+   border-color: var(--primary-color);
+   box-shadow: 0 0 5px rgba(102, 126, 234, 0.4);
+}
+
+/* Kiểu cho nút Bật/Tắt */
+.toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 25px; /* Bo tròn */
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.toggle-btn { /* Kiểu khi TẮT */
+  background-color: #e0e0e0;
+  color: #666;
+}
+
+.toggle-btn.active { /* Kiểu khi BẬT */
+  background-color: #4CAF50; /* Màu xanh lá */
+  color: white;
+}

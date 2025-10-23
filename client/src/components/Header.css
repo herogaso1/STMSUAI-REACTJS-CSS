@@ -3,12 +3,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px 32px;
-  background: white;
-  border-bottom: 1px solid #e5e7eb;
+  background: var(--bg-secondary-color); /* Use secondary background */
+  border-bottom: 1px solid var(--border-color); /* Use border color */
   position: sticky;
   top: 0;
   z-index: 100;
   min-height: 70px;
+  transition: background-color 0.3s ease, border-color 0.3s ease; /* Add transitions */
 }
 
 .header-left {
@@ -26,16 +27,18 @@
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
+  background-color: transparent; /* Start transparent */
 }
 
+/* Simplify hover/active - use bg-color (slightly different from header bg) */
 .user-profile:hover {
-  background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
-  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.15);
+  background-color: var(--bg-color); /* Use main bg on hover */
+  box-shadow: 0 2px 8px var(--shadow-color); /* Use shadow variable */
 }
 
 .user-profile.active {
-  background: linear-gradient(135deg, #bae6fd 0%, #e0f2fe 100%);
-  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
+  background-color: var(--bg-color); /* Use main bg when active */
+  box-shadow: 0 4px 12px var(--shadow-color); /* Use shadow variable */
 }
 
 .user-avatar {
@@ -43,14 +46,14 @@
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #0ea5e9;
-  box-shadow: 0 2px 6px rgba(14, 165, 233, 0.3);
+  border: 2px solid var(--primary-color); /* Use primary color */
+  box-shadow: 0 2px 6px var(--shadow-color); /* Use shadow variable */
   transition: all 0.3s ease;
 }
 
 .user-profile:hover .user-avatar {
-  border-color: #0284c7;
-  box-shadow: 0 3px 10px rgba(14, 165, 233, 0.4);
+  border-color: var(--secondary-color); /* Use secondary color on hover */
+  box-shadow: 0 3px 10px var(--shadow-color);
   transform: scale(1.05);
 }
 
@@ -63,42 +66,43 @@
 .user-name {
   font-size: 14px;
   font-weight: 600;
-  color: #1f2937;
+  color: var(--text-color); /* Use text color */
   transition: color 0.3s;
 }
 
 .user-profile:hover .user-name {
-  color: #0284c7;
+  color: var(--primary-color); /* Use primary color on hover */
 }
 
 .dropdown-icon {
   font-size: 18px;
-  color: #94a3b8;
+  color: var(--text-secondary-color); /* Use secondary text color */
   transition: all 0.3s ease;
 }
 
 .user-profile:hover .dropdown-icon {
-  color: #0ea5e9;
+  color: var(--primary-color); /* Use primary color on hover */
 }
 
 .user-profile.active .dropdown-icon {
   transform: rotate(180deg);
-  color: #0284c7;
+  color: var(--secondary-color); /* Use secondary color when active */
 }
 
 .user-dropdown {
   position: absolute;
-  top: 55px;
+  top: calc(100% + 5px); /* Position below the profile button */
   left: 0;
-  background: white;
+  background: var(--bg-secondary-color); /* Use secondary background */
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(14, 165, 233, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e0f2fe;
+  box-shadow: 0 8px 24px var(--shadow-color), 0 4px 8px var(--shadow-color); /* Use shadow variable */
+  border: 1px solid var(--border-color); /* Use border variable */
   min-width: 180px;
   padding: 8px;
   z-index: 1000;
   animation: slideDown 0.3s ease;
-  backdrop-filter: blur(10px);
+  /* backdrop-filter: blur(10px); */ /* Backdrop filter might not look good on all backgrounds */
+  transition: background-color 0.3s ease, border-color 0.3s ease; /* Add transition */
 }
 
 @keyframes slideDown {
@@ -118,51 +122,41 @@
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 14px;
-  color: #475569;
+  color: var(--text-secondary-color); /* Use secondary text color */
   position: relative;
   overflow: hidden;
+  background-color: transparent; /* Ensure transparent background */
+  z-index: 1; /* Ensure text is above pseudo-element */
 }
 
-.dropdown-item::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 0;
-  height: 100%;
-  background: linear-gradient(90deg, #0ea5e9 0%, #0284c7 100%);
-  transition: width 0.3s ease;
-  z-index: -1;
-  opacity: 0.1;
-}
+/* Remove complex pseudo-element */
+/* .dropdown-item::before { ... } */
 
 .dropdown-item:hover {
-  background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
-  color: #0284c7;
+  background-color: var(--bg-color); /* Use main background color on hover */
+  color: var(--primary-color); /* Use primary color */
   transform: translateX(4px);
 }
 
-.dropdown-item:hover::before {
-  width: 100%;
-}
+/* Remove pseudo-element hover */
+/* .dropdown-item:hover::before { ... } */
 
 .dropdown-item.logout {
-  color: #ef4444;
+  color: #ef4444; /* Keep semantic red */
 }
 
 .dropdown-item.logout:hover {
-  background: #fef2f2;
-  color: #dc2626;
+  background: #fef2f2; /* Keep light red background */
+  color: #dc2626; /* Keep darker red */
   transform: translateX(4px);
 }
 
-.dropdown-item.logout::before {
-  background: #ef4444;
-}
+/* Remove pseudo-element for logout */
+/* .dropdown-item.logout::before { ... } */
 
 .dropdown-divider {
   height: 1px;
-  background: #e5e7eb;
+  background: var(--border-color); /* Use border color */
   margin: 6px 0;
 }
 
@@ -178,37 +172,34 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #f1f5f9;
+  background: var(--bg-color); /* Use main background color */
   padding: 10px 16px;
   border-radius: 12px;
   width: 100%;
-  border: 2px solid transparent;
+  border: 1px solid var(--border-color); /* Use border color */
   transition: all 0.3s ease;
 }
 
 .header-search:hover {
-  background: #e0f2fe;
-  border-color: #bae6fd;
+  background: var(--bg-secondary-color); /* Use secondary background on hover */
+  border-color: var(--primary-color); /* Use primary color */
 }
 
 .header-search:focus-within {
-  background: white;
-  border-color: #0ea5e9;
-  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+  background: var(--bg-secondary-color); /* Use secondary background when focused */
+  border-color: var(--primary-color); /* Use primary color */
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2); /* Adjust alpha if needed */
 }
 
 .search-icon {
   font-size: 18px;
-  color: #94a3b8;
+  color: var(--text-secondary-color); /* Use secondary text color */
   transition: all 0.3s;
 }
 
-.header-search:hover .search-icon {
-  color: #0ea5e9;
-}
-
+.header-search:hover .search-icon,
 .header-search:focus-within .search-icon {
-  color: #0284c7;
+  color: var(--primary-color); /* Use primary color */
 }
 
 .search-input {
@@ -216,12 +207,12 @@
   background: transparent;
   outline: none;
   font-size: 14px;
-  color: #1f2937;
+  color: var(--text-color); /* Use main text color */
   flex: 1;
 }
 
 .search-input::placeholder {
-  color: #9ca3af;
+  color: var(--text-secondary-color); /* Use secondary text color */
 }
 
 .header-right {
@@ -247,24 +238,24 @@
 }
 
 .notification-btn:hover {
-  background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
-  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.15);
+  background-color: var(--bg-color); /* Use main background on hover */
+  box-shadow: 0 2px 8px var(--shadow-color);
   transform: translateY(-2px);
 }
 
 .notification-icon {
   font-size: 22px;
-  color: #94a3b8;
+  color: var(--text-secondary-color); /* Use secondary text color */
   transition: all 0.3s ease;
 }
 
 .notification-btn:hover .notification-icon {
-  color: #0ea5e9;
+  color: var(--primary-color); /* Use primary color */
   transform: scale(1.1);
 }
 
 .notification-icon.active {
-  color: #0284c7;
+  color: var(--secondary-color); /* Use secondary color */
   animation: bellRing 0.5s ease;
 }
 
@@ -285,7 +276,7 @@
   position: absolute;
   top: 6px;
   right: 6px;
-  background: #ef4444;
+  background: #ef4444; /* Keep semantic red */
   color: white;
   font-size: 10px;
   font-weight: 600;
@@ -311,18 +302,19 @@
 
 .notification-dropdown {
   position: absolute;
-  top: 50px;
+  top: calc(100% + 5px); /* Position below button */
   right: 0;
-  background: white;
+  background: var(--bg-secondary-color); /* Use secondary background */
   border-radius: 14px;
-  box-shadow: 0 8px 24px rgba(14, 165, 233, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e0f2fe;
+  box-shadow: 0 8px 24px var(--shadow-color), 0 4px 8px var(--shadow-color);
+  border: 1px solid var(--border-color); /* Use border color */
   width: 320px;
   max-height: 400px;
   overflow: hidden;
   z-index: 1000;
   animation: slideDown 0.3s ease;
-  backdrop-filter: blur(10px);
+  /* backdrop-filter: blur(10px); */
+  transition: background-color 0.3s ease, border-color 0.3s ease; /* Add transition */
 }
 
 .notification-header {
@@ -330,20 +322,22 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border-color); /* Use border color */
+  transition: border-color 0.3s ease; /* Add transition */
 }
 
 .notification-header h3 {
   font-size: 16px;
   font-weight: 600;
-  color: #1f2937;
+  color: var(--text-color); /* Use text color */
   margin: 0;
+  transition: color 0.3s ease; /* Add transition */
 }
 
 .clear-btn {
   background: none;
   border: none;
-  color: #0ea5e9;
+  color: var(--primary-color); /* Use primary color */
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
@@ -353,8 +347,8 @@
 }
 
 .clear-btn:hover {
-  background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
-  color: #0284c7;
+  background-color: var(--bg-color); /* Use main bg color on hover */
+  color: var(--secondary-color); /* Use secondary color */
   transform: scale(1.05);
 }
 
@@ -365,25 +359,27 @@
 
 .notification-item {
   padding: 14px 16px;
-  border-bottom: 1px solid #f1f5f9;
+  border-bottom: 1px solid var(--border-color); /* Use border color */
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
+  background-color: transparent; /* Ensure transparent background */
 }
 
 .notification-item:hover {
-  background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
+  background-color: var(--bg-color); /* Use main background color */
   transform: translateX(4px);
 }
 
 .notification-item.unread {
-  background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 100%);
-  border-left: 3px solid #0ea5e9;
-  box-shadow: inset 0 0 20px rgba(14, 165, 233, 0.1);
+  background-color: var(--bg-color); /* Use main background for unread */
+  border-left: 3px solid var(--primary-color); /* Use primary color */
+  /* Remove complex gradient/shadow for simpler theming */
+  /* box-shadow: inset 0 0 20px rgba(14, 165, 233, 0.1); */
 }
 
 .notification-item.unread:hover {
-  background: linear-gradient(135deg, #bae6fd 0%, #dbeafe 100%);
+  background-color: var(--bg-secondary-color); /* Use secondary background on hover */
 }
 
 .notification-content {
@@ -394,16 +390,19 @@
 
 .notification-message {
   font-size: 14px;
-  color: #1f2937;
+  color: var(--text-color); /* Use text color */
   margin: 0;
   line-height: 1.4;
+  transition: color 0.3s ease; /* Add transition */
 }
 
 .notification-time {
   font-size: 12px;
-  color: #6b7280;
+  color: var(--text-secondary-color); /* Use secondary text color */
+  transition: color 0.3s ease; /* Add transition */
 }
 
+/* Responsive */
 @media (max-width: 768px) {
   .header {
     padding: 12px 16px;
@@ -414,9 +413,10 @@
     max-width: 300px;
   }
 
-  .user-name {
+  /* Keep user name on mobile if space allows, adjust later if needed */
+  /* .user-name {
     display: none;
-  }
+  } */
 
   .notification-dropdown {
     width: 280px;

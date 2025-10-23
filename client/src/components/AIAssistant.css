@@ -2,31 +2,38 @@
 
 .ai-assistant {
   width: 100%;
-  height: 100%;
+  height: 100%; /* Ensure it fills container */
   padding: 20px;
-  background: #f8f9fa;
+  background-color: var(--bg-color); /* Use main background */
+  transition: background-color 0.3s ease;
 }
 
 .ai-container {
   max-width: 900px;
-  height: calc(100vh - 120px);
+  /* Adjust height calculation if needed */
+  height: calc(100vh - 70px - 40px); /* Account for header and padding */
+  min-height: 500px; /* Minimum height */
   margin: 0 auto;
-  background: white;
+  background: var(--bg-secondary-color); /* Use secondary background */
   border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 12px var(--shadow-color); /* Use shadow variable */
+  border: 1px solid var(--border-color); /* Add border */
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Header đơn giản */
+/* Header */
 .ai-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 24px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  padding: 16px 24px; /* Slightly reduced padding */
+  /* Keep accent gradient */
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: white; /* Keep white text */
+  flex-shrink: 0; /* Prevent header from shrinking */
 }
 
 .ai-header-left {
@@ -35,365 +42,244 @@
   gap: 12px;
 }
 
+/* AI Icon container in header */
 .ai-icon {
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.2);
+  width: 48px; height: 48px;
+  display: flex; align-items: center; justify-content: center;
+  /* background: rgba(255, 255, 255, 0.15); */ /* Subtle background */
   border-radius: 12px;
-  font-size: 24px;
+  /* font-size: 24px; */ /* Font size set by image */
 }
+.ai-logo { /* The image itself */
+  width: 100%; /* Fill container */
+  height: 100%;
+  border-radius: 12px; /* Match container */
+  object-fit: cover;
+  /* box-shadow: 0 2px 5px rgba(0,0,0,0.2); */ /* Remove shadow maybe? */
+}
+
 
 .ai-header h2 {
   margin: 0;
-  font-size: 20px;
+  font-size: 18px; /* Slightly smaller */
   font-weight: 700;
 }
 
 .ai-header p {
   margin: 2px 0 0 0;
   font-size: 13px;
-  opacity: 0.9;
+  opacity: 0.85; /* Slightly less opaque */
 }
 
 .ai-status {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
-  opacity: 0.95;
+  font-size: 13px; /* Slightly smaller */
+  opacity: 0.9;
 }
 
 .status-dot {
-  width: 8px;
-  height: 8px;
-  background: #10b981;
+  width: 8px; height: 8px;
+  background: #10b981; /* Keep semantic green */
   border-radius: 50%;
-  animation: pulse 2s ease-in-out infinite;
+  animation: pulseStatus 2s ease-in-out infinite; /* Renamed animation */
 }
 
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
+@keyframes pulseStatus { /* Renamed animation */
+  0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); } /* Add shadow pulse */
+  50% { box-shadow: 0 0 0 5px rgba(16, 185, 129, 0); }
 }
 
 /* Quick Actions */
 .quick-actions {
   display: flex;
-  gap: 8px;
-  padding: 16px;
-  background: #f8f9fa;
-  border-bottom: 1px solid #e9ecef;
-  overflow-x: auto;
+  gap: 10px; /* Slightly increased gap */
+  padding: 12px 16px; /* Adjusted padding */
+  background: var(--bg-color); /* Use main background */
+  border-bottom: 1px solid var(--border-color); /* Use border variable */
+  overflow-x: auto; /* Keep horizontal scroll */
+  flex-shrink: 0; /* Prevent shrinking */
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .quick-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 16px;
-  background: white;
-  border: 1px solid #dee2e6;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #495057;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.2s ease;
+  display: flex; align-items: center; gap: 6px; padding: 8px 14px; /* Adjusted padding */
+  background: var(--bg-secondary-color); /* Use secondary background */
+  border: 1px solid var(--border-color); /* Use border variable */
+  border-radius: 8px; font-size: 13px; /* Slightly smaller */
+  font-weight: 500; color: var(--text-secondary-color); /* Use secondary text color */
+  cursor: pointer; white-space: nowrap; transition: all 0.2s ease;
 }
 
 .quick-btn:hover {
-  background: #667eea;
-  color: white;
-  border-color: #667eea;
+  background: var(--primary-color); /* Use primary color */
+  color: white; /* White text */
+  border-color: var(--primary-color);
   transform: translateY(-1px);
 }
 
-.quick-btn span:first-child {
-  font-size: 16px;
-}
+.quick-btn span:first-child { font-size: 16px; }
 
 /* Chat Area */
 .chat-area {
-  flex: 1;
-  overflow-y: auto;
+  flex: 1; /* Allow chat area to grow */
+  overflow-y: auto; /* Enable vertical scroll */
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  /* Improve scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-secondary-color) transparent;
 }
+.chat-area::-webkit-scrollbar { width: 6px; }
+.chat-area::-webkit-scrollbar-track { background: transparent; }
+.chat-area::-webkit-scrollbar-thumb { background-color: var(--text-secondary-color); border-radius: 3px; }
+.chat-area::-webkit-scrollbar-thumb:hover { background-color: var(--text-color); }
 
-.msg {
-  display: flex;
-  gap: 12px;
-  animation: fadeIn 0.3s ease;
-}
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+.msg { display: flex; gap: 12px; animation: fadeInMsg 0.3s ease; } /* Renamed animation */
 
-.msg.user {
-  flex-direction: row-reverse;
-}
+@keyframes fadeInMsg { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.msg.user { flex-direction: row-reverse; }
 
 .msg-avatar {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 10px;
-  font-size: 18px;
-  flex-shrink: 0;
+  width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+  border-radius: 10px; font-size: 18px; flex-shrink: 0;
+  /* Use gradient background */
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: white; /* Icon color */
 }
+/* Avatar for AI */
+.avatar-img {
+    width: 100%; height: 100%;
+    border-radius: inherit; /* Match parent rounding */
+    object-fit: cover;
+}
+
 
 .msg.user .msg-avatar {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  /* Use a different color/gradient for user avatar placeholder */
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%); /* Semantic green */
 }
 
-.msg-body {
-  flex: 1;
-  max-width: 75%;
-}
+.msg-body { flex: 1; max-width: 75%; }
 
-.msg.user .msg-body {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
+.msg.user .msg-body { display: flex; flex-direction: column; align-items: flex-end; }
 
 .msg-bubble {
   padding: 12px 16px;
-  background: #f8f9fa;
+  background: var(--bg-color); /* Use main background for AI bubble */
   border-radius: 12px;
-  border: 1px solid #e9ecef;
+  border: 1px solid var(--border-color); /* Use border variable */
+  color: var(--text-color); /* Use text color */
+  transition: all 0.3s ease;
 }
 
 .msg.user .msg-bubble {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  /* Keep gradient for user bubble */
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: white; /* White text */
   border: none;
 }
 
-.msg-bubble p {
-  margin: 0;
-  font-size: 15px;
-  line-height: 1.5;
-  white-space: pre-line;
-}
+.msg-bubble p { margin: 0; font-size: 15px; line-height: 1.5; white-space: pre-line; }
 
-.suggestions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 10px;
-}
-
+/* Suggestions - Not used in provided JSX, but styled anyway */
+.suggestions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
 .sug-btn {
-  padding: 6px 12px;
-  background: white;
-  border: 1px solid #dee2e6;
-  border-radius: 6px;
-  font-size: 13px;
-  color: #495057;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  padding: 6px 12px; background: var(--bg-secondary-color); /* Use secondary background */
+  border: 1px solid var(--border-color); /* Use border variable */
+  border-radius: 6px; font-size: 13px; color: var(--text-secondary-color); /* Use secondary text */
+  cursor: pointer; transition: all 0.2s ease;
 }
-
-.msg.user .sug-btn {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.3);
-  color: white;
+.msg.user .sug-btn { /* Style for suggestions in user bubble */
+  background: rgba(255, 255, 255, 0.15); border-color: rgba(255, 255, 255, 0.3); color: white;
 }
-
 .sug-btn:hover {
-  background: #667eea;
-  color: white;
-  border-color: #667eea;
+  background: var(--primary-color); color: white; border-color: var(--primary-color);
 }
 
 .msg-time {
-  display: block;
-  margin-top: 4px;
-  font-size: 11px;
-  color: #adb5bd;
+  display: block; margin-top: 4px; font-size: 11px;
+  color: var(--text-secondary-color); /* Use secondary text color */
+  transition: color 0.3s ease;
 }
+.msg.user .msg-time {
+    text-align: right; /* Align time right for user messages */
+}
+
 
 /* Typing indicator */
-.msg-bubble.typing {
-  display: flex;
-  gap: 4px;
-  padding: 12px 16px;
-}
-
+.msg-bubble.typing { display: flex; gap: 4px; padding: 12px 16px; }
 .msg-bubble.typing span {
-  width: 8px;
-  height: 8px;
-  background: #adb5bd;
-  border-radius: 50%;
-  animation: typing 1s ease-in-out infinite;
+  width: 8px; height: 8px;
+  background: var(--text-secondary-color); /* Use secondary text color */
+  border-radius: 50%; animation: typingAnim 1s ease-in-out infinite alternate; /* Renamed + alternate */
 }
+.msg-bubble.typing span:nth-child(2) { animation-delay: 0.15s; }
+.msg-bubble.typing span:nth-child(3) { animation-delay: 0.3s; }
 
-.msg-bubble.typing span:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.msg-bubble.typing span:nth-child(3) {
-  animation-delay: 0.4s;
-}
-
-@keyframes typing {
-  0%,
-  60%,
-  100% {
-    transform: translateY(0);
-  }
-  30% {
-    transform: translateY(-8px);
-  }
+@keyframes typingAnim { /* Renamed animation */
+  from { transform: translateY(0); opacity: 0.5; }
+  to { transform: translateY(-6px); opacity: 1; }
 }
 
 /* Chat Input */
 .chat-input-area {
-  display: flex;
-  gap: 8px;
-  padding: 16px;
-  background: white;
-  border-top: 1px solid #e9ecef;
+  display: flex; gap: 10px; /* Increased gap */ padding: 16px;
+  background: var(--bg-secondary-color); /* Use secondary background */
+  border-top: 1px solid var(--border-color); /* Use border variable */
+  flex-shrink: 0; /* Prevent input area from shrinking */
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .chat-input {
-  flex: 1;
-  padding: 12px 16px;
-  border: 1px solid #dee2e6;
-  border-radius: 10px;
-  font-size: 15px;
-  font-family: inherit;
-  outline: none;
+  flex: 1; padding: 12px 16px;
+  border: 1px solid var(--border-color); /* Use border variable */
+  border-radius: 10px; font-size: 15px; font-family: inherit; outline: none;
+  background-color: var(--bg-color); /* Use main background */
+  color: var(--text-color); /* Use text color */
   transition: all 0.2s ease;
 }
-
 .chat-input:focus {
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: var(--primary-color); /* Use primary color */
+  background-color: var(--bg-secondary-color); /* Use secondary on focus */
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
 }
 
 .send-btn {
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border: none;
-  border-radius: 10px;
-  color: white;
-  font-size: 18px;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
+  /* Keep accent gradient */
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  border: none; border-radius: 10px; color: white; /* White icon */
+  font-size: 20px; /* Slightly larger icon */
+  cursor: pointer; transition: all 0.2s ease;
 }
 
 .send-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  transform: translateY(-2px); opacity: 0.9;
+  box-shadow: 0 4px 12px var(--shadow-color); /* Use shadow variable */
 }
 
-.send-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+.send-btn:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
 
-/* Scrollbar */
-.chat-area::-webkit-scrollbar {
-  width: 6px;
-}
-
-.chat-area::-webkit-scrollbar-track {
-  background: #f8f9fa;
-}
-
-.chat-area::-webkit-scrollbar-thumb {
-  background: #dee2e6;
-  border-radius: 3px;
-}
-
-.chat-area::-webkit-scrollbar-thumb:hover {
-  background: #adb5bd;
-}
 
 /* Responsive */
 @media (max-width: 768px) {
-  .ai-assistant {
-    padding: 0;
-  }
-
-  .ai-container {
-    height: 100vh;
-    border-radius: 0;
-  }
-
-  .ai-header {
-    padding: 16px;
-  }
-
-  .ai-header h2 {
-    font-size: 18px;
-  }
-
-  .ai-header p {
-    font-size: 12px;
-  }
-
-  .chat-area {
-    padding: 16px;
-  }
-
-  .msg-body {
-    max-width: 85%;
-  }
-
-  .quick-actions {
-    padding: 12px;
-  }
-
-  .quick-btn {
-    padding: 8px 12px;
-    font-size: 13px;
-  }
-}
-.ai-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.ai-logo {
-  width: 48px;          /* kích thước icon */
-  height: 48px;
-  border-radius: 50%;   /* bo tròn ảnh */
-  object-fit: cover;    /* ảnh luôn vừa khung */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-.avatar-img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
+  .ai-assistant { padding: 0; }
+  .ai-container { height: 100vh; border-radius: 0; border: none; }
+  .ai-header { padding: 12px 16px; }
+  .ai-header h2 { font-size: 16px; }
+  .ai-header p { font-size: 12px; }
+  .ai-icon { width: 40px; height: 40px; } /* Smaller icon */
+  .chat-area { padding: 16px; }
+  .msg-body { max-width: 85%; }
+  .quick-actions { padding: 10px 12px; }
+  .quick-btn { padding: 8px 12px; font-size: 13px; }
+  .chat-input-area { padding: 12px; }
+  .chat-input { padding: 10px 14px; }
+  .send-btn { width: 44px; height: 44px; font-size: 18px; }
 }

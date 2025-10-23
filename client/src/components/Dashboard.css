@@ -1,9 +1,11 @@
 .dashboard {
   padding: 32px;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-  min-height: 100vh;
+  /* Use variable for background */
+  background-color: var(--bg-color);
+  min-height: calc(100vh - 70px); /* Adjust min-height considering header */
   max-width: 1400px;
   margin: 0 auto;
+  transition: background-color 0.3s ease; /* Add transition */
 }
 
 /* Header Section */
@@ -13,10 +15,11 @@
   align-items: center;
   margin-bottom: 32px;
   padding: 24px;
-  background: white;
+  background: var(--bg-secondary-color); /* Use secondary background */
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.08);
-  border: 2px solid #e0f2fe;
+  box-shadow: 0 4px 12px var(--shadow-color); /* Use shadow variable */
+  border: 1px solid var(--border-color); /* Use border variable */
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* Add transitions */
 }
 
 .welcome-section {
@@ -26,7 +29,8 @@
 .welcome-title {
   font-size: 28px;
   font-weight: 700;
-  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  /* Keep gradient using variables */
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -35,9 +39,10 @@
 
 .welcome-subtitle {
   font-size: 16px;
-  color: #64748b;
+  color: var(--text-secondary-color); /* Use secondary text color */
   margin: 0;
   font-weight: 500;
+  transition: color 0.3s ease; /* Add transition */
 }
 
 .date-info {
@@ -45,15 +50,19 @@
   align-items: center;
   gap: 10px;
   padding: 12px 20px;
-  background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
+  /* Use subtle background or border instead of gradient */
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
-  color: #0284c7;
+  color: var(--primary-color); /* Use primary color */
   font-weight: 600;
   font-size: 14px;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; /* Add transitions */
 }
 
 .calendar-icon {
   font-size: 18px;
+  /* Color inherited */
 }
 
 /* Stats Grid */
@@ -65,16 +74,17 @@
 }
 
 .stat-card {
-  background: white;
+  background: var(--bg-secondary-color); /* Use secondary background */
   padding: 24px;
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  border: 2px solid transparent;
+  box-shadow: 0 4px 12px var(--shadow-color); /* Use shadow variable */
+  border: 1px solid var(--border-color); /* Use border variable */
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
 }
 
+/* Keep top border effect using variables */
 .stat-card::before {
   content: "";
   position: absolute;
@@ -82,15 +92,16 @@
   left: 0;
   width: 100%;
   height: 4px;
-  background: linear-gradient(90deg, #0ea5e9, #0284c7);
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
   transform: scaleX(0);
+  transform-origin: left; /* Animate from left */
   transition: transform 0.3s ease;
 }
 
 .stat-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(14, 165, 233, 0.15);
-  border-color: #e0f2fe;
+  box-shadow: 0 8px 20px var(--shadow-color); /* Use shadow variable, maybe slightly darker on hover? */
+  border-color: var(--primary-color); /* Use primary color */
 }
 
 .stat-card:hover::before {
@@ -113,27 +124,13 @@
   justify-content: center;
   font-size: 22px;
   transition: all 0.3s ease;
+  /* Semantic colors - keep these */
 }
+.tasks-icon { background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 100%); color: #0284c7; }
+.streak-icon { background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); color: #ef4444; }
+.pomodoro-icon { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); color: #f59e0b; }
+.goal-icon { background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); color: #10b981; }
 
-.tasks-icon {
-  background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 100%);
-  color: #0284c7;
-}
-
-.streak-icon {
-  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
-  color: #ef4444;
-}
-
-.pomodoro-icon {
-  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-  color: #f59e0b;
-}
-
-.goal-icon {
-  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
-  color: #10b981;
-}
 
 .stat-card:hover .stat-icon {
   transform: scale(1.1) rotate(5deg);
@@ -141,10 +138,11 @@
 
 .stat-label {
   font-size: 14px;
-  color: #1e293b;
+  color: var(--text-color); /* Use text color */
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  transition: color 0.3s ease; /* Add transition */
 }
 
 .stat-content {
@@ -156,23 +154,26 @@
 .stat-value {
   font-size: 32px;
   font-weight: 700;
-  color: #1e293b;
+  color: var(--text-color); /* Use text color */
   line-height: 1;
+  transition: color 0.3s ease; /* Add transition */
 }
 
 .stat-subtitle {
   font-size: 13px;
-  color: #94a3b8;
+  color: var(--text-secondary-color); /* Use secondary text color */
   font-weight: 500;
+  transition: color 0.3s ease; /* Add transition */
 }
 
 /* Progress Bar */
 .progress-bar {
   width: 100%;
   height: 8px;
-  background: #f1f5f9;
+  background: var(--bg-color); /* Use main background */
   border-radius: 10px;
   overflow: hidden;
+  transition: background-color 0.3s ease; /* Add transition */
 }
 
 .progress-fill {
@@ -182,6 +183,7 @@
   position: relative;
 }
 
+/* Shimmer effect might be visually noisy, consider removing or adjusting */
 .progress-fill::after {
   content: "";
   position: absolute;
@@ -192,82 +194,56 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.2), /* Reduce opacity slightly */
     transparent
   );
   animation: shimmer 2s infinite;
 }
-
-@keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
+/* Adjust shimmer for dark mode? */
+body.dark .progress-fill::after {
+   background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1), /* Even less opacity */
+    transparent
+  );
 }
 
-.tasks-progress {
-  background: linear-gradient(90deg, #0ea5e9, #0284c7);
-}
+@keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
 
-.goal-progress {
-  background: linear-gradient(90deg, #10b981, #059669);
-}
+/* Semantic colors - keep these */
+.tasks-progress { background: linear-gradient(90deg, #0ea5e9, #0284c7); }
+.goal-progress { background: linear-gradient(90deg, #10b981, #059669); }
 
 /* Streak Indicator */
-.streak-indicator {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
+.streak-indicator { display: flex; gap: 8px; align-items: center; }
 
 .streak-day {
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: #f1f5f9;
+  background: var(--bg-color); /* Use main background */
   transition: all 0.3s ease;
 }
-
+/* Semantic color - keep this */
 .streak-day.active {
   background: linear-gradient(135deg, #ef4444, #dc2626);
   box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
-  animation: fireGlow 2s infinite;
+  animation: fireGlow 2s infinite alternate; /* Add alternate direction */
 }
 
-@keyframes fireGlow {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.5);
-  }
-}
+/* Adjust keyframes if needed for dark mode */
+@keyframes fireGlow { 0% { transform: scale(1); box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);} 100% { transform: scale(1.05); box-shadow: 0 4px 12px rgba(239, 68, 68, 0.5); } }
 
 /* Pomodoro Time */
 .pomodoro-time {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
+  display: flex; align-items: center; gap: 8px; padding: 8px 12px;
+  /* Semantic color - keep this */
   background: linear-gradient(135deg, #fef3c7, #fde68a);
-  border-radius: 8px;
-  width: fit-content;
+  border-radius: 8px; width: fit-content;
 }
-
-.flash-icon {
-  color: #f59e0b;
-  font-size: 16px;
-}
-
-.pomodoro-time span {
-  color: #92400e;
-  font-weight: 600;
-  font-size: 13px;
-}
+.flash-icon { color: #f59e0b; font-size: 16px; } /* Semantic */
+.pomodoro-time span { color: #92400e; font-weight: 600; font-size: 13px; } /* Semantic */
 
 /* Content Grid */
 .content-grid {
@@ -278,16 +254,17 @@
 }
 
 .content-card {
-  background: white;
+  background: var(--bg-secondary-color); /* Use secondary background */
   padding: 24px;
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  border: 2px solid #e0f2fe;
+  box-shadow: 0 4px 12px var(--shadow-color); /* Use shadow variable */
+  border: 1px solid var(--border-color); /* Use border variable */
   transition: all 0.3s ease;
 }
 
 .content-card:hover {
-  box-shadow: 0 8px 20px rgba(14, 165, 233, 0.1);
+  box-shadow: 0 8px 20px var(--shadow-color); /* Use shadow variable */
+  border-color: var(--primary-color); /* Use primary color */
 }
 
 .card-header {
@@ -296,532 +273,367 @@
   align-items: center;
   margin-bottom: 20px;
   padding-bottom: 16px;
-  border-bottom: 2px solid #f1f5f9;
+  border-bottom: 1px solid var(--border-color); /* Use border variable */
+  transition: border-color 0.3s ease; /* Add transition */
 }
 
 .card-title {
   font-size: 18px;
   font-weight: 700;
-  color: #1e293b;
+  color: var(--text-color); /* Use text color */
   margin: 0;
   display: flex;
   align-items: center;
   gap: 10px;
+  transition: color 0.3s ease; /* Add transition */
 }
 
 .title-icon {
-  color: #0ea5e9;
+  color: var(--primary-color); /* Use primary color */
   font-size: 20px;
+  transition: color 0.3s ease; /* Add transition */
 }
 
 .view-all-btn {
-  background: none;
-  border: none;
-  color: #0ea5e9;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  padding: 6px 12px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  background: none; border: none;
+  color: var(--primary-color); /* Use primary color */
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  padding: 6px 12px; border-radius: 8px; transition: all 0.3s ease;
 }
 
 .view-all-btn:hover {
-  background: linear-gradient(135deg, #e0f2fe, #f0f9ff);
+  background-color: var(--bg-color); /* Use main background on hover */
+  color: var(--secondary-color); /* Use secondary color */
   transform: translateX(4px);
 }
 
 /* Tasks List */
-.tasks-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 16px;
-}
+.tasks-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
 
 .task-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px;
-  background: #f8fafc;
+  display: flex; align-items: center; gap: 12px; padding: 14px;
+  background: var(--bg-color); /* Use main background */
   border-radius: 12px;
-  border: 2px solid transparent;
+  border: 1px solid var(--border-color); /* Use border variable */
   transition: all 0.3s ease;
   cursor: pointer;
 }
 
 .task-item:hover {
-  background: linear-gradient(135deg, #e0f2fe, #f0f9ff);
-  border-color: #bae6fd;
+  background-color: var(--bg-secondary-color); /* Use secondary background */
+  border-color: var(--primary-color); /* Use primary color */
   transform: translateX(4px);
 }
 
 .task-checkbox {
   font-size: 20px;
-  color: #cbd5e1;
+  color: var(--text-secondary-color); /* Use secondary text color */
   transition: all 0.3s;
 }
 
 .task-item:hover .task-checkbox {
-  color: #0ea5e9;
+  color: var(--primary-color); /* Use primary color */
   transform: scale(1.1);
 }
 
-.checkbox-checked {
-  color: #10b981;
-}
+.checkbox-checked { color: #10b981; } /* Semantic green */
 
-.task-info {
-  flex: 1;
-}
+.task-info { flex: 1; }
 
 .task-title {
-  font-size: 14px;
-  font-weight: 600;
-  color: #1e293b;
+  font-size: 14px; font-weight: 600;
+  color: var(--text-color); /* Use text color */
   margin: 0 0 8px 0;
+  transition: color 0.3s ease; /* Add transition */
 }
 
-.task-meta {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+.task-meta { display: flex; align-items: center; gap: 12px; }
 
-.task-priority {
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-size: 11px;
-  font-weight: 600;
-  color: white;
-  text-transform: uppercase;
-}
+/* Keep semantic priority colors */
+.task-priority { padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; color: white; text-transform: uppercase; }
 
 .task-deadline {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 12px;
-  color: #64748b;
+  display: flex; align-items: center; gap: 4px; font-size: 12px;
+  color: var(--text-secondary-color); /* Use secondary text color */
   font-weight: 500;
+  transition: color 0.3s ease; /* Add transition */
+}
+.task-deadline svg { /* Ensure icon color matches text */
+    color: currentColor;
 }
 
+
 .add-task-btn {
-  width: 100%;
-  padding: 12px;
-  background: linear-gradient(135deg, #e0f2fe, #f0f9ff);
-  border: 2px dashed #0ea5e9;
+  width: 100%; padding: 12px;
+  background-color: var(--bg-secondary-color); /* Use secondary background */
+  border: 2px dashed var(--primary-color); /* Use primary color */
   border-radius: 10px;
-  color: #0284c7;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-size: 14px;
+  color: var(--primary-color); /* Use primary color */
+  font-weight: 600; cursor: pointer; transition: all 0.3s ease;
+  display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px;
 }
 
 .add-task-btn:hover {
-  background: linear-gradient(135deg, #bae6fd, #e0f2fe);
+  background-color: var(--bg-color); /* Use main background on hover */
   border-style: solid;
   transform: scale(1.02);
 }
 
-.add-task-btn .plus-icon {
-  font-size: 20px;
-}
+.add-task-btn .plus-icon { font-size: 20px; color: currentColor; /* Inherit color */ }
 
 .delete-task-btn {
-  background: none;
-  border: none;
-  color: #94a3b8;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: none; border: none;
+  color: var(--text-secondary-color); /* Use secondary text color */
+  cursor: pointer; padding: 8px; border-radius: 8px; transition: all 0.3s ease;
+  display: flex; align-items: center; justify-content: center;
 }
 
 .delete-task-btn:hover {
-  background: #fee2e2;
-  color: #ef4444;
+  background: #fee2e2; /* Keep semantic light red */
+  color: #ef4444; /* Keep semantic red */
   transform: scale(1.1);
 }
 
 .empty-tasks {
-  text-align: center;
-  padding: 32px;
-  color: #94a3b8;
+  text-align: center; padding: 32px;
+  color: var(--text-secondary-color); /* Use secondary text color */
+  transition: color 0.3s ease; /* Add transition */
 }
 
-.empty-tasks p {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 500;
-}
+.empty-tasks p { margin: 0; font-size: 14px; font-weight: 500; }
 
 /* Activities List */
-.activities-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
+.activities-list { display: flex; flex-direction: column; gap: 16px; }
 
 .activity-item {
-  display: flex;
-  align-items: start;
-  gap: 12px;
-  padding: 12px;
-  background: #f8fafc;
+  display: flex; align-items: start; gap: 12px; padding: 12px;
+  background: var(--bg-color); /* Use main background */
   border-radius: 10px;
-  border-left: 3px solid #0ea5e9;
+  border-left: 3px solid var(--primary-color); /* Use primary color */
   transition: all 0.3s ease;
 }
 
 .activity-item:hover {
-  background: linear-gradient(135deg, #e0f2fe, #f0f9ff);
+  background-color: var(--bg-secondary-color); /* Use secondary background */
   transform: translateX(4px);
 }
 
-.activity-icon {
-  font-size: 24px;
-  flex-shrink: 0;
-}
+.activity-icon { font-size: 24px; flex-shrink: 0; /* Color inherited? Needs testing */ }
 
-.activity-info {
-  flex: 1;
-}
+.activity-info { flex: 1; }
 
 .activity-text {
-  font-size: 14px;
-  font-weight: 600;
-  color: #1e293b;
+  font-size: 14px; font-weight: 600;
+  color: var(--text-color); /* Use text color */
   margin: 0 0 4px 0;
+  transition: color 0.3s ease; /* Add transition */
 }
 
 .activity-time {
   font-size: 12px;
-  color: #94a3b8;
+  color: var(--text-secondary-color); /* Use secondary text color */
   font-weight: 500;
+  transition: color 0.3s ease; /* Add transition */
 }
 
 /* Quick Actions */
 .quick-actions {
-  background: white;
-  padding: 24px;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  border: 2px solid #e0f2fe;
+  background: var(--bg-secondary-color); /* Use secondary background */
+  padding: 24px; border-radius: 16px;
+  box-shadow: 0 4px 12px var(--shadow-color); /* Use shadow variable */
+  border: 1px solid var(--border-color); /* Use border variable */
+  transition: all 0.3s ease;
 }
 
 .section-title {
-  font-size: 18px;
-  font-weight: 700;
-  color: #1e293b;
+  font-size: 18px; font-weight: 700;
+  color: var(--text-color); /* Use text color */
   margin: 0 0 20px 0;
+  transition: color 0.3s ease; /* Add transition */
 }
 
 .actions-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;
 }
 
 .action-btn {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px 20px;
-  border: 2px solid #e0f2fe;
+  display: flex; align-items: center; gap: 12px; padding: 16px 20px;
+  border: 1px solid var(--border-color); /* Use border variable */
   border-radius: 12px;
-  background: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 14px;
-  font-weight: 600;
-  color: #1e293b;
+  background: var(--bg-secondary-color); /* Use secondary background */
+  cursor: pointer; transition: all 0.3s ease; font-size: 14px; font-weight: 600;
+  color: var(--text-color); /* Use text color */
 }
 
 .action-btn:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(14, 165, 233, 0.15);
+  box-shadow: 0 8px 20px var(--shadow-color); /* Use shadow variable */
+  /* Keep semantic hover backgrounds */
 }
 
-.action-icon {
-  font-size: 22px;
-}
+.action-icon { font-size: 22px; color: currentColor; /* Inherit color */ transition: color 0.3s ease;}
 
-.pomodoro-action:hover {
-  background: linear-gradient(135deg, #fef3c7, #fde68a);
-  border-color: #fbbf24;
-}
+/* Keep semantic hover styles */
+.pomodoro-action:hover { background: linear-gradient(135deg, #fef3c7, #fde68a); border-color: #fbbf24; color: #92400e; }
+.pomodoro-action:hover .action-icon { color: #f59e0b; }
+.task-action:hover { background: linear-gradient(135deg, #dbeafe, #e0f2fe); border-color: #0ea5e9; color: #0284c7;}
+.task-action:hover .action-icon { color: #0284c7; }
+.study-action:hover { background: linear-gradient(135deg, #fee2e2, #fecaca); border-color: #ef4444; color: #b91c1c;}
+.study-action:hover .action-icon { color: #dc2626; }
+.ai-action:hover { background: linear-gradient(135deg, #dcfce7, #bbf7d0); border-color: #10b981; color: #047857;}
+.ai-action:hover .action-icon { color: #059669; }
 
-.pomodoro-action:hover .action-icon {
-  color: #f59e0b;
-}
-
-.task-action:hover {
-  background: linear-gradient(135deg, #dbeafe, #e0f2fe);
-  border-color: #0ea5e9;
-}
-
-.task-action:hover .action-icon {
-  color: #0284c7;
-}
-
-.study-action:hover {
-  background: linear-gradient(135deg, #fee2e2, #fecaca);
-  border-color: #ef4444;
-}
-
-.study-action:hover .action-icon {
-  color: #dc2626;
-}
-
-.ai-action:hover {
-  background: linear-gradient(135deg, #dcfce7, #bbf7d0);
-  border-color: #10b981;
-}
-
-.ai-action:hover .action-icon {
-  color: #059669;
-}
 
 /* Modal Styles */
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  animation: fadeIn 0.2s ease;
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.6); /* Slightly darker overlay */
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000; animation: fadeIn 0.2s ease;
+}
+body.dark .modal-overlay {
+    background: rgba(0, 0, 0, 0.8); /* Even darker overlay for dark mode */
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 .modal-content {
-  background: white;
+  background: var(--bg-secondary-color); /* Use secondary background */
   border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  width: 90%;
-  max-width: 500px;
+  box-shadow: 0 20px 60px var(--shadow-color); /* Use shadow variable */
+  width: 90%; max-width: 500px;
   animation: slideUp 0.3s ease;
+  transition: background-color 0.3s ease; /* Add transition */
 }
 
-@keyframes slideUp {
-  from {
-    transform: translateY(40px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
+@keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-.task-modal {
-  max-width: 550px;
-}
+.task-modal { max-width: 550px; }
 
 .modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: flex; justify-content: space-between; align-items: center;
   padding: 24px;
-  border-bottom: 2px solid #f1f5f9;
+  border-bottom: 1px solid var(--border-color); /* Use border variable */
+  transition: border-color 0.3s ease; /* Add transition */
 }
 
 .modal-title {
-  font-size: 20px;
-  font-weight: 700;
-  color: #1e293b;
+  font-size: 20px; font-weight: 700;
+  color: var(--text-color); /* Use text color */
   margin: 0;
+  transition: color 0.3s ease; /* Add transition */
 }
 
 .close-modal-btn {
-  background: none;
-  border: none;
-  font-size: 28px;
-  color: #94a3b8;
-  cursor: pointer;
-  padding: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  background: none; border: none; font-size: 28px;
+  color: var(--text-secondary-color); /* Use secondary text color */
+  cursor: pointer; padding: 4px; display: flex; align-items: center;
+  justify-content: center; border-radius: 8px; transition: all 0.3s ease;
 }
 
 .close-modal-btn:hover {
-  background: #f1f5f9;
-  color: #1e293b;
+  background: var(--bg-color); /* Use main background */
+  color: var(--text-color); /* Use main text color */
   transform: rotate(90deg);
 }
 
-.modal-body {
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
+.modal-body { padding: 24px; display: flex; flex-direction: column; gap: 20px; }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
+.form-group { display: flex; flex-direction: column; gap: 8px; }
 
 .form-group label {
-  font-size: 14px;
-  font-weight: 600;
-  color: #475569;
+  font-size: 14px; font-weight: 600;
+  color: var(--text-secondary-color); /* Use secondary text color */
+  transition: color 0.3s ease; /* Add transition */
 }
 
 .form-input {
   padding: 12px 16px;
-  border: 2px solid #e2e8f0;
-  border-radius: 10px;
-  font-size: 14px;
-  color: #1e293b;
-  transition: all 0.3s ease;
-  font-family: inherit;
+  border: 1px solid var(--border-color); /* Use border variable */
+  border-radius: 10px; font-size: 14px;
+  color: var(--text-color); /* Use text color */
+  background-color: var(--bg-color); /* Use main background */
+  transition: all 0.3s ease; font-family: inherit;
 }
 
 .form-input:focus {
   outline: none;
-  border-color: #0ea5e9;
-  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+  border-color: var(--primary-color); /* Use primary color */
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2); /* Adjust alpha if needed */
+  background-color: var(--bg-secondary-color); /* Use secondary background on focus */
 }
 
 .form-input::placeholder {
-  color: #94a3b8;
+  color: var(--text-secondary-color); /* Use secondary text color */
+  transition: color 0.3s ease; /* Add transition */
 }
 
-.priority-options {
-  display: flex;
-  gap: 12px;
-}
+.priority-options { display: flex; gap: 12px; }
 
 .priority-btn {
-  flex: 1;
-  padding: 12px;
-  border: 2px solid;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  flex: 1; padding: 12px; border: 2px solid; border-radius: 10px;
+  font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;
   font-family: inherit;
+  /* Background/color set via inline style based on state */
 }
 
 .priority-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px var(--shadow-color); /* Use shadow variable */
 }
 
 .modal-footer {
   padding: 20px 24px;
-  border-top: 2px solid #f1f5f9;
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
+  border-top: 1px solid var(--border-color); /* Use border variable */
+  display: flex; justify-content: flex-end; gap: 12px;
+  transition: border-color 0.3s ease; /* Add transition */
 }
 
 .btn-cancel {
   padding: 10px 20px;
-  background: #f1f5f9;
-  border: none;
+  background: var(--bg-color); /* Use main background */
+  border: 1px solid var(--border-color); /* Use border color */
   border-radius: 10px;
-  color: #64748b;
-  font-weight: 600;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  color: var(--text-secondary-color); /* Use secondary text color */
+  font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.3s ease;
   font-family: inherit;
 }
 
 .btn-cancel:hover {
-  background: #e2e8f0;
+  background: var(--bg-secondary-color); /* Use secondary background */
+  border-color: var(--text-secondary-color);
   transform: translateY(-2px);
 }
 
 .btn-create {
   padding: 10px 24px;
-  background: linear-gradient(135deg, #0ea5e9, #0284c7);
-  border: none;
-  border-radius: 10px;
-  color: white;
-  font-weight: 600;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border: none; border-radius: 10px; color: white;
+  font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.3s ease;
   font-family: inherit;
 }
 
 .btn-create:hover:not(:disabled) {
-  background: linear-gradient(135deg, #0284c7, #0369a1);
+  /* Slightly adjust gradient or just use primary/secondary */
+  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+  box-shadow: 0 4px 12px var(--shadow-color); /* Use shadow variable */
 }
 
-.btn-create:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+.btn-create:disabled { opacity: 0.5; cursor: not-allowed; }
 
 /* Responsive */
 @media (max-width: 1200px) {
-  .content-grid {
-    grid-template-columns: 1fr;
-  }
+  .content-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 768px) {
-  .dashboard {
-    padding: 16px;
-  }
-
-  .dashboard-header {
-    flex-direction: column;
-    gap: 16px;
-    align-items: flex-start;
-  }
-
-  .welcome-title {
-    font-size: 22px;
-  }
-
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .actions-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .modal-content {
-    width: 95%;
-    margin: 20px;
-  }
-
-  .priority-options {
-    flex-direction: column;
-  }
+  .dashboard { padding: 16px; }
+  .dashboard-header { flex-direction: column; gap: 16px; align-items: stretch; /* Stretch items */ }
+  .date-info { justify-content: center; } /* Center date info on mobile */
+  .welcome-title { font-size: 22px; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .actions-grid { grid-template-columns: 1fr; }
+  .modal-content { width: 95%; margin: 20px; }
+  .priority-options { flex-direction: column; }
 }

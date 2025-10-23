@@ -2,57 +2,66 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #e3f2fd, #f8f9fa);
+  /* Use main background color */
+  background-color: var(--bg-color);
   min-height: 100vh;
   padding: 40px;
-  font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif; /* Keep specific font if desired */
+  transition: background-color 0.3s ease; /* Add transition */
 }
 
 .profile-card {
-  background: #fff;
-  width: 450px;
+  background: var(--bg-secondary-color); /* Use secondary background */
+  width: 100%; /* Allow flexibility */
+  max-width: 450px; /* Set max-width */
   padding: 30px;
   border-radius: 20px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 30px var(--shadow-color); /* Use shadow variable */
+  border: 1px solid var(--border-color); /* Add subtle border */
   transition: all 0.3s ease;
 }
 
 .profile-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 12px 35px var(--shadow-color); /* Use shadow variable */
+  border-color: var(--primary-color); /* Highlight border on hover */
 }
 
 .profile-header {
   display: flex;
   align-items: center;
   gap: 20px;
-  border-bottom: 2px solid #eee;
+  border-bottom: 1px solid var(--border-color); /* Use border variable */
   padding-bottom: 15px;
   margin-bottom: 20px;
+  transition: border-color 0.3s ease; /* Add transition */
 }
 
 .profile-avatar {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  border: 3px solid #4a90e2;
+  border: 3px solid var(--primary-color); /* Use primary color */
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease; /* Add transitions */
 }
 
 .profile-avatar:hover {
   transform: scale(1.05);
+  border-color: var(--secondary-color); /* Use secondary color */
 }
 
 .profile-header h2 {
   margin: 0;
   font-size: 1.5rem;
-  color: #333;
+  color: var(--text-color); /* Use text variable */
+  transition: color 0.3s ease; /* Add transition */
 }
 
 .profile-header p {
-  color: #666;
+  color: var(--text-secondary-color); /* Use secondary text variable */
   font-weight: 500;
+  transition: color 0.3s ease; /* Add transition */
 }
 
 .profile-info {
@@ -60,24 +69,35 @@
 }
 
 .profile-info h3 {
-  color: #4a90e2;
+  color: var(--primary-color); /* Use primary color */
   margin-bottom: 10px;
+  transition: color 0.3s ease; /* Add transition */
 }
 
 .info-item {
   display: flex;
   justify-content: space-between;
   padding: 8px 0;
-  border-bottom: 1px solid #f1f1f1;
+  border-bottom: 1px solid var(--border-color); /* Use border variable */
+  transition: border-color 0.3s ease; /* Add transition */
+}
+.info-item:last-child {
+    border-bottom: none; /* Remove border for last item */
 }
 
 .info-item strong {
-  color: #333;
+  color: var(--text-color); /* Use text variable */
+  transition: color 0.3s ease; /* Add transition */
+}
+.info-item span {
+  color: var(--text-secondary-color); /* Use secondary text variable */
+  transition: color 0.3s ease; /* Add transition */
 }
 
 .profile-actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Keep buttons separated */
+  gap: 15px; /* Add gap */
   margin-top: 25px;
 }
 
@@ -89,192 +109,164 @@
   cursor: pointer;
   font-weight: 500;
   transition: all 0.2s ease;
+  flex: 1; /* Make buttons share space if needed */
+  text-align: center;
 }
 
 .edit-btn {
-  background: #4a90e2;
-  color: white;
+  background: var(--primary-color); /* Use primary color */
+  color: white; /* Keep white text */
 }
 
 .logout-btn {
-  background: #e74c3c;
-  color: white;
+  background: #e74c3c; /* Keep semantic red */
+  color: white; /* Keep white text */
 }
 
 .edit-btn:hover {
-  background: #357abd;
+  background: var(--secondary-color); /* Use secondary color on hover */
+  opacity: 0.9;
 }
 
 .logout-btn:hover {
-  background: #c0392b;
+  background: #c0392b; /* Keep semantic darker red */
+  opacity: 0.9;
 }
+
 /* --- CSS cho Modal --- */
 
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Nền mờ */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Slightly darker overlay */
+  display: flex; align-items: center; justify-content: center; z-index: 1000;
+}
+body.dark .modal-overlay {
+    background-color: rgba(0, 0, 0, 0.8); /* Even darker */
 }
 
 .modal-content {
-  background: white;
-  padding: 24px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 450px; /* Kích thước tối đa */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  animation: slide-down 0.3s ease-out; /* Hiệu ứng trượt xuống */
+  background: var(--bg-secondary-color); /* Use secondary background */
+  padding: 24px; border-radius: 12px; width: 90%; max-width: 450px;
+  box-shadow: 0 5px 15px var(--shadow-color); /* Use shadow variable */
+  border: 1px solid var(--border-color); /* Add border */
+  animation: slide-down 0.3s ease-out;
+  transition: background-color 0.3s ease, border-color 0.3s ease; /* Add transitions */
 }
 
-@keyframes slide-down {
-  from {
-    transform: translateY(-50px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
+@keyframes slide-down { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
 .modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 16px;
-  margin-bottom: 16px;
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid var(--border-color); /* Use border variable */
+  padding-bottom: 16px; margin-bottom: 16px;
+  transition: border-color 0.3s ease; /* Add transition */
 }
 
 .modal-header h2 {
-  margin: 0;
-  font-size: 1.25rem;
+  margin: 0; font-size: 1.25rem;
+  color: var(--text-color); /* Use text variable */
+  transition: color 0.3s ease; /* Add transition */
 }
 
 .close-btn {
-  background: none;
-  border: none;
-  font-size: 2rem;
-  line-height: 1;
-  color: #aaa;
+  background: none; border: none; font-size: 2rem; line-height: 1;
+  color: var(--text-secondary-color); /* Use secondary text variable */
   cursor: pointer;
+  transition: color 0.3s ease; /* Add transition */
 }
 .close-btn:hover {
-  color: #333;
+  color: var(--text-color); /* Use text variable */
 }
 
-.modal-body .form-group {
-  margin-bottom: 16px;
-}
+.modal-body .form-group { margin-bottom: 16px; }
 
 .form-group label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: #333;
+  display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem;
+  color: var(--text-secondary-color); /* Use secondary text variable */
+  transition: color 0.3s ease; /* Add transition */
 }
 
 .form-group input {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
-  box-sizing: border-box; /* Quan trọng */
+  width: 100%; padding: 10px 12px;
+  border: 1px solid var(--border-color); /* Use border variable */
+  border-radius: 8px; font-size: 1rem; box-sizing: border-box;
+  background-color: var(--bg-color); /* Use main background */
+  color: var(--text-color); /* Use text variable */
+  transition: all 0.3s ease; /* Add transition */
+}
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background-color: var(--bg-secondary-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
 }
 
 .modal-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px; /* Khoảng cách giữa 2 nút */
-  margin-top: 24px;
+  display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px;
   padding-top: 16px;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--border-color); /* Use border variable */
+  transition: border-color 0.3s ease; /* Add transition */
 }
 
 .btn-cancel,
 .btn-save {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
+  padding: 10px 20px; border: none; border-radius: 8px; font-size: 1rem;
+  font-weight: 600; cursor: pointer; transition: all 0.3s ease;
 }
 
 .btn-cancel {
-  background-color: #f0f0f0;
-  color: #333;
+  background-color: var(--bg-color); /* Use main background */
+  color: var(--text-secondary-color); /* Use secondary text variable */
+  border: 1px solid var(--border-color); /* Add border */
 }
 .btn-cancel:hover {
-  background-color: #e0e0e0;
+  background-color: var(--bg-secondary-color); /* Use secondary background */
+  border-color: var(--text-secondary-color);
 }
 
 .btn-save {
-  background-color: #007bff; /* Màu xanh dương */
-  color: white;
+  background-color: var(--primary-color); /* Use primary color */
+  color: white; /* Keep white text */
 }
 .btn-save:hover {
-  background-color: #0056b3;
+  background-color: var(--secondary-color); /* Use secondary color */
+  opacity: 0.9;
 }
+
+/* Keep semantic error styles */
 .modal-error {
-  color: red;
-  background-color: #ffebee;
-  border: 1px solid red;
-  padding: 10px;
-  border-radius: 8px;
-  margin-bottom: 16px;
-  text-align: center;
+  color: red; background-color: #ffebee; border: 1px solid red;
+  padding: 10px; border-radius: 8px; margin-bottom: 16px; text-align: center;
 }
-/* Thêm vào file CSS của bạn (Profile.css hoặc Modal.css) */
-
-.avatar-upload-group {
-  margin-bottom: 20px;
+/* Optional: Adjust error colors slightly for dark mode */
+body.dark .modal-error {
+    background-color: #4d1a1a; /* Darker red background */
+    color: #ffcccc; /* Lighter red text */
+    border-color: #ff4d4d; /* Brighter red border */
 }
 
-.avatar-preview-container {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
+
+/* Avatar Upload Styles */
+.avatar-upload-group { margin-bottom: 20px; }
+
+.avatar-preview-container { display: flex; align-items: center; gap: 16px; }
 
 .avatar-preview {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%; /* Bo tròn ảnh preview */
-  object-fit: cover;
-  border: 2px solid #ddd;
+  width: 80px; height: 80px; border-radius: 50%; object-fit: cover;
+  border: 2px solid var(--border-color); /* Use border variable */
+  transition: border-color 0.3s ease; /* Add transition */
 }
 
 .btn-change-avatar {
-  background-color: #f0f0f0;
-  color: #333;
+  background-color: var(--bg-color); /* Use main background */
+  color: var(--text-secondary-color); /* Use secondary text variable */
   padding: 8px 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s;
+  border: 1px solid var(--border-color); /* Use border variable */
+  border-radius: 8px; font-weight: 600; cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .btn-change-avatar:hover {
-  background-color: #e0e0e0;
-}
-
-.modal-error {
-  color: red;
-  background-color: #ffebee;
-  border: 1px solid red;
-  padding: 10px;
-  border-radius: 8px;
-  margin-bottom: 16px;
-  text-align: center;
+  background-color: var(--bg-secondary-color); /* Use secondary background */
+  border-color: var(--text-secondary-color);
 }

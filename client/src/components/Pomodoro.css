@@ -1,73 +1,134 @@
 .pomodoro-container {
+  /* Center the content vertically and horizontally */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 110px); /* Adjust height considering header/padding */
+  padding: 30px;
   text-align: center;
-  margin-top: 50px;
-  color: #333;
+  color: var(--text-color); /* Use main text color */
+  background-color: var(--bg-color); /* Use main background */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .pomodoro-header h1 {
-  color: #3b5bdb;
-  margin-bottom: 20px;
+  color: var(--primary-color); /* Use primary color */
+  margin-bottom: 40px; /* Increased margin */
+  font-size: 2rem;
+  font-weight: 700;
+  transition: color 0.3s ease;
 }
 
 .pomodoro-circle {
   position: relative;
-  width: 220px;
-  height: 220px;
-  margin: 0 auto;
+  width: 250px; /* Slightly larger */
+  height: 250px;
+  margin: 0 auto 30px; /* Add bottom margin */
+  /* Style the circle border (using SVG or a library is better for progress) */
+  border: 8px solid var(--border-color); /* Use border color */
+  border-radius: 50%;
+  transition: border-color 0.3s ease;
 }
+
+/* Optional: Add a pseudo-element for progress (pure CSS is complex) */
+/* .pomodoro-circle::before { ... } */
 
 .pomodoro-time {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 100%; /* Ensure text wraps if needed */
 }
 
 .pomodoro-time h2 {
-  font-size: 48px;
-  margin: 0;
+  font-size: 56px; /* Larger font */
+  font-weight: 700;
+  margin: 0 0 5px; /* Add small bottom margin */
+  color: var(--text-color); /* Use main text color */
+  transition: color 0.3s ease;
 }
 
 .pomodoro-time p {
-  color: #666;
-  font-weight: bold;
+  color: var(--text-secondary-color); /* Use secondary text color */
+  font-weight: 500; /* Normal weight */
   letter-spacing: 1px;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  margin: 0;
+  transition: color 0.3s ease;
 }
 
 .pomodoro-controls {
   margin-top: 25px;
   display: flex;
   justify-content: center;
-  gap: 15px;
+  gap: 20px; /* Increased gap */
+  align-items: center; /* Vertically align buttons */
 }
 
 .pomodoro-controls button {
-  border: none;
-  background: #f1f1f1;
+  border: 1px solid var(--border-color); /* Add border */
+  background: var(--bg-secondary-color); /* Use secondary background */
   font-size: 20px;
   border-radius: 50%;
-  width: 45px;
-  height: 45px;
+  width: 50px; /* Slightly larger */
+  height: 50px;
   cursor: pointer;
   transition: all 0.2s;
+  display: flex; /* Center icon */
+  align-items: center; /* Center icon */
+  justify-content: center; /* Center icon */
+  color: var(--text-secondary-color); /* Use secondary text color for icon */
+  box-shadow: 0 2px 5px var(--shadow-color); /* Add subtle shadow */
 }
 
-.pomodoro-controls button:hover {
-  background: #d0d0ff;
+.pomodoro-controls button:hover:not(:disabled) {
+  background: var(--bg-color); /* Use main background on hover */
+  color: var(--primary-color); /* Use primary color for icon */
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px var(--shadow-color);
 }
 
+/* Specific style for the main Start/Pause button */
 .main-btn {
-  background: #3b5bdb;
-  color: white;
+  background: var(--primary-color); /* Use primary color */
+  color: white; /* White icon */
+  width: 65px; /* Larger main button */
+  height: 65px;
+  font-size: 28px;
+  border: none;
+  box-shadow: 0 4px 10px rgba(102, 126, 234, 0.4);
 }
+
+.main-btn:hover:not(:disabled) {
+  background: var(--secondary-color); /* Use secondary color on hover */
+  color: white;
+  border: none;
+  box-shadow: 0 6px 12px rgba(118, 75, 162, 0.4);
+}
+
+.pomodoro-controls button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
 
 .pomodoro-cycle {
-  margin-top: 10px;
+  margin-top: 20px; /* Increased margin */
   font-weight: 600;
+  color: var(--text-secondary-color); /* Use secondary text color */
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
 }
 
 .pomodoro-footer {
-  margin-top: 30px;
+  margin-top: 40px; /* Increased margin */
   font-size: 13px;
-  color: #777;
+  color: var(--text-secondary-color); /* Use secondary text color */
+  transition: color 0.3s ease;
 }

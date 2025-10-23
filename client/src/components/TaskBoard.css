@@ -1,7 +1,9 @@
 .taskboard-wrapper {
   padding: 32px;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-  min-height: 100vh;
+  /* Use variable for background */
+  background-color: var(--bg-color);
+  min-height: calc(100vh - 70px); /* Adjust min-height considering header */
+  transition: background-color 0.3s ease; /* Add transition */
 }
 
 .taskboard-top-header {
@@ -11,7 +13,8 @@
 .taskboard-main-title {
   font-size: 28px;
   font-weight: 700;
-  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  /* Keep gradient using variables */
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -22,22 +25,27 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  background: white;
+  background: var(--bg-secondary-color); /* Use secondary background */
   padding: 14px 20px;
   border-radius: 12px;
-  border: 2px solid #e0f2fe;
+  border: 1px solid var(--border-color); /* Use border variable */
   transition: all 0.3s ease;
   max-width: 600px;
 }
 
 .taskboard-search-bar:focus-within {
-  border-color: #0ea5e9;
-  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+  border-color: var(--primary-color); /* Use primary color */
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2); /* Adjust alpha */
+  background: var(--bg-secondary-color); /* Ensure background doesn't change too drastically */
 }
 
 .taskboard-search-bar .search-icon {
   font-size: 18px;
-  color: #94a3b8;
+  color: var(--text-secondary-color); /* Use secondary text color */
+  transition: color 0.3s ease;
+}
+.taskboard-search-bar:focus-within .search-icon {
+    color: var(--primary-color); /* Use primary color */
 }
 
 .taskboard-search-bar .search-input {
@@ -45,39 +53,53 @@
   border: none;
   outline: none;
   font-size: 14px;
-  color: #1e293b;
+  color: var(--text-color); /* Use text color */
+  background: transparent; /* Input background is transparent */
   font-family: inherit;
 }
 
 .taskboard-search-bar .search-input::placeholder {
-  color: #cbd5e1;
+  color: var(--text-secondary-color); /* Use secondary text color */
+  transition: color 0.3s ease;
 }
 
 .task-board {
   display: flex;
   gap: 20px;
-  overflow-x: auto;
-  padding-bottom: 20px;
+  overflow-x: auto; /* Keep horizontal scroll */
+  padding-bottom: 20px; /* Space for scrollbar */
+  /* Improve scrollbar appearance */
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-secondary-color) transparent;
 }
+.task-board::-webkit-scrollbar { width: 8px; height: 8px; }
+.task-board::-webkit-scrollbar-track { background: transparent; }
+.task-board::-webkit-scrollbar-thumb { background-color: var(--text-secondary-color); border-radius: 4px; border: 2px solid transparent; background-clip: content-box; }
+.task-board::-webkit-scrollbar-thumb:hover { background-color: var(--text-color); }
+
 
 .task-column {
   min-width: 320px;
   max-width: 380px;
   width: 340px;
   flex-shrink: 0;
-  background: white;
+  background: var(--bg-secondary-color); /* Use secondary background */
   border-radius: 12px;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  align-self: flex-start;
-  border: 2px solid #e0f2fe;
+  align-self: flex-start; /* Important for flex layout */
+  border: 1px solid var(--border-color); /* Use border variable */
+  box-shadow: 0 4px 12px var(--shadow-color); /* Add initial shadow */
   transition: all 0.3s ease;
+  height: calc(100vh - 200px); /* Example fixed height, adjust as needed */
+  max-height: calc(100vh - 150px); /* Prevent excessive height */
 }
 
 .task-column:hover {
-  box-shadow: 0 8px 20px rgba(14, 165, 233, 0.1);
-  border-color: #bae6fd;
+  box-shadow: 0 8px 20px var(--shadow-color); /* Use shadow variable */
+  border-color: var(--primary-color); /* Use primary color */
+  transform: translateY(-2px); /* Subtle lift */
 }
 
 .column-header {
@@ -85,6 +107,9 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
+  padding-bottom: 10px; /* Add padding below */
+  border-bottom: 1px solid var(--border-color); /* Separator */
+  transition: border-color 0.3s ease;
 }
 
 .column-title-wrapper {
@@ -96,13 +121,14 @@
 .column-title {
   font-size: 16px;
   font-weight: 600;
-  color: #1f2937;
+  color: var(--text-color); /* Use text color */
   margin: 0;
+  transition: color 0.3s ease;
 }
 
 .column-count {
-  background: linear-gradient(135deg, #e0f2fe, #f0f9ff);
-  color: #0284c7;
+  background-color: var(--bg-color); /* Use main background */
+  color: var(--text-secondary-color); /* Use secondary text color */
   font-size: 12px;
   font-weight: 700;
   padding: 4px 10px;
@@ -110,6 +136,8 @@
   min-width: 24px;
   text-align: center;
   line-height: 1.2;
+  border: 1px solid var(--border-color); /* Add border */
+  transition: all 0.3s ease;
 }
 
 .column-actions {
@@ -118,520 +146,316 @@
 }
 
 .column-btn {
-  width: 32px;
-  height: 32px;
-  min-width: 32px;
-  padding: 0;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  color: #64748b;
-  background: #f8fafc;
-  transition: all 0.3s ease;
-  font-weight: 600;
+  width: 32px; height: 32px; min-width: 32px; padding: 0; border: none;
+  border-radius: 8px; cursor: pointer; display: flex; align-items: center;
+  justify-content: center; font-size: 18px;
+  color: var(--text-secondary-color); /* Use secondary text color */
+  background: var(--bg-color); /* Use main background */
+  transition: all 0.3s ease; font-weight: 600;
+  border: 1px solid var(--border-color); /* Add border */
 }
 
 .column-btn:hover {
-  background: linear-gradient(135deg, #e0f2fe, #f0f9ff);
-  color: #0ea5e9;
+  background: var(--bg-secondary-color); /* Use secondary background */
+  color: var(--primary-color); /* Use primary color */
+  border-color: var(--primary-color);
   transform: translateY(-2px);
 }
 
 .column-btn.add-btn:hover {
-  background: linear-gradient(135deg, #0ea5e9, #0284c7);
-  color: white;
-  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+  /* Keep gradient for add button */
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white; /* White icon */
+  border-color: transparent;
+  box-shadow: 0 4px 12px var(--shadow-color); /* Use shadow variable */
 }
 
 .column-content {
-  flex: 1;
-  overflow-y: auto;
-  padding-right: 4px;
-  position: relative;
+  flex: 1; /* Allow content to grow */
+  overflow-y: auto; /* Enable vertical scroll *within* the column */
+  padding-right: 8px; /* Space for scrollbar */
+  margin-right: -8px; /* Counteract padding for full width */
+  position: relative; /* Needed for z-index hover effect */
+  /* Improve scrollbar appearance */
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-secondary-color) transparent;
 }
+.column-content::-webkit-scrollbar { width: 6px; }
+.column-content::-webkit-scrollbar-track { background: transparent; }
+.column-content::-webkit-scrollbar-thumb { background-color: var(--text-secondary-color); border-radius: 3px; }
+.column-content::-webkit-scrollbar-thumb:hover { background-color: var(--text-color); }
 
-.column-content > div {
-  margin-top: 10px;
+
+.column-content > div { /* Target TaskCard components */
+  margin-bottom: 10px; /* Use margin-bottom instead of margin-top */
   position: relative;
   z-index: 1;
 }
+.column-content > div:last-child {
+    margin-bottom: 0; /* No margin for the last card */
+}
 
 .column-content > div:hover {
-  z-index: 100;
+  z-index: 100; /* Bring card to front on hover */
 }
 
-.column-content::-webkit-scrollbar {
-  width: 6px;
-}
+/* --- MODAL STYLES (Copied/Adjusted from Profile.css) --- */
 
-.column-content::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.column-content::-webkit-scrollbar-thumb {
-  background: #d1d5db;
-  border-radius: 3px;
-}
-
-.column-content::-webkit-scrollbar-thumb:hover {
-  background: #9ca3af;
-}
-
-/* Modal Styles */
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  padding: 20px;
-  backdrop-filter: blur(4px);
-  animation: fadeIn 0.2s ease;
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex; align-items: center; justify-content: center; z-index: 1000;
+  padding: 20px; backdrop-filter: blur(4px); animation: fadeIn 0.2s ease;
 }
+body.dark .modal-overlay { background: rgba(0, 0, 0, 0.8); }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 .modal-content {
-  background: white;
-  border-radius: 16px;
-  width: 100%;
-  max-width: 600px;
-  max-height: 90vh;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  background: var(--bg-secondary-color); /* Use secondary background */
+  border-radius: 16px; width: 100%; max-width: 600px; max-height: 90vh;
+  overflow: hidden; display: flex; flex-direction: column;
+  box-shadow: 0 20px 60px var(--shadow-color); /* Use shadow variable */
+  border: 1px solid var(--border-color); /* Add border */
   animation: slideUp 0.3s ease;
+  transition: background-color 0.3s ease, border-color 0.3s ease; /* Add transition */
 }
 
-@keyframes slideUp {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
+@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
 .modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 24px;
-  border-bottom: 2px solid #f1f5f9;
+  display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; /* Adjust padding */
+  border-bottom: 1px solid var(--border-color); /* Use border variable */
+  transition: border-color 0.3s ease;
 }
 
 .modal-title {
-  font-size: 20px;
-  font-weight: 700;
-  color: #1e293b;
-  margin: 0;
+  font-size: 18px; font-weight: 700; /* Adjusted size */
+  color: var(--text-color); /* Use text color */
+  margin: 0; transition: color 0.3s ease;
 }
 
-.modal-header-actions {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
+.modal-header-actions { display: flex; gap: 8px; align-items: center; }
 
 .delete-btn {
-  background: none;
-  border: none;
-  padding: 8px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 18px;
-  transition: all 0.2s;
+  background: none; border: none; padding: 8px; border-radius: 8px;
+  cursor: pointer; font-size: 18px; transition: all 0.2s;
+  color: var(--text-secondary-color); /* Start with secondary color */
 }
-
 .delete-btn:hover {
-  background: #fee2e2;
+  background: #fee2e2; /* Keep semantic light red */
+  color: #ef4444; /* Keep semantic red */
   transform: scale(1.1);
 }
 
 .close-modal-btn {
-  background: none;
-  border: none;
-  padding: 8px;
-  border-radius: 8px;
-  cursor: pointer;
-  color: #64748b;
-  font-size: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: none; border: none; padding: 8px; border-radius: 8px;
+  cursor: pointer; color: var(--text-secondary-color); /* Use secondary text color */
+  font-size: 24px; display: flex; align-items: center; justify-content: center;
   transition: all 0.2s;
 }
-
 .close-modal-btn:hover {
-  background: #fee2e2;
-  color: #ef4444;
+  background: var(--bg-color); /* Use main background */
+  color: var(--text-color); /* Use main text color */
   transform: rotate(90deg);
 }
 
-.modal-body {
-  padding: 24px;
-  overflow-y: auto;
-  flex: 1;
-}
+.modal-body { padding: 24px; overflow-y: auto; flex: 1; }
 
 /* Natural Language Input */
 .natural-input-section {
-  background: linear-gradient(135deg, #e0f2fe, #f0f9ff);
-  padding: 20px;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  border: 2px solid #bae6fd;
+  /* Use subtle background or border */
+  background-color: var(--bg-color);
+  padding: 20px; border-radius: 12px; margin-bottom: 20px;
+  border: 1px solid var(--border-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .form-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #0284c7;
-  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600;
+  color: var(--primary-color); /* Use primary color */
+  margin-bottom: 12px; transition: color 0.3s ease;
 }
 
-.sparkle-icon {
-  font-size: 18px;
-  color: #0ea5e9;
-}
+.sparkle-icon { font-size: 18px; color: currentColor; }
 
-.natural-input-wrapper {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
+.natural-input-wrapper { display: flex; gap: 10px; align-items: center; }
 
 .natural-input {
-  flex: 1;
-  padding: 12px 16px;
-  border: 2px solid #e0f2fe;
-  border-radius: 10px;
-  font-size: 14px;
-  color: #1e293b;
-  transition: all 0.3s ease;
-  font-family: inherit;
-  background: white;
+  flex: 1; padding: 12px 16px;
+  border: 1px solid var(--border-color); /* Use border variable */
+  border-radius: 10px; font-size: 14px;
+  color: var(--text-color); /* Use text color */
+  background-color: var(--bg-secondary-color); /* Use secondary background */
+  transition: all 0.3s ease; font-family: inherit;
 }
-
 .natural-input:focus {
-  outline: none;
-  border-color: #0ea5e9;
-  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+  outline: none; border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
 }
 
 .quick-create-btn {
   padding: 12px 20px;
-  background: linear-gradient(135deg, #0ea5e9, #0284c7);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: inherit;
-  white-space: nowrap;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white; border: none; border-radius: 10px; font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center;
+  gap: 6px; font-family: inherit; white-space: nowrap;
 }
-
 .quick-create-btn:hover {
-  background: linear-gradient(135deg, #0284c7, #0369a1);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+  transform: translateY(-2px); box-shadow: 0 4px 12px var(--shadow-color);
 }
 
 .input-hint {
-  margin: 10px 0 0 0;
-  font-size: 12px;
-  color: #0284c7;
-  line-height: 1.5;
+  margin: 10px 0 0 0; font-size: 12px;
+  color: var(--text-secondary-color); /* Use secondary text color */
+  line-height: 1.5; transition: color 0.3s ease;
 }
 
 .divider {
-  display: flex;
-  align-items: center;
-  text-align: center;
-  margin: 24px 0;
-  color: #94a3b8;
-  font-size: 13px;
-  font-weight: 500;
+  display: flex; align-items: center; text-align: center; margin: 24px 0;
+  color: var(--text-secondary-color); /* Use secondary text color */
+  font-size: 13px; font-weight: 500; transition: color 0.3s ease;
 }
-
-.divider::before,
-.divider::after {
-  content: "";
-  flex: 1;
-  border-bottom: 1px solid #e2e8f0;
+.divider::before, .divider::after {
+  content: ""; flex: 1; border-bottom: 1px solid var(--border-color); /* Use border variable */
+  transition: border-color 0.3s ease;
 }
-
-.divider span {
-  padding: 0 16px;
-}
+.divider span { padding: 0 16px; }
 
 /* Form Styles */
-.form-group {
-  margin-bottom: 20px;
-}
+.form-group { margin-bottom: 20px; }
 
 .form-group label {
-  display: block;
-  font-size: 14px;
-  font-weight: 600;
-  color: #475569;
-  margin-bottom: 8px;
+  display: block; font-size: 14px; font-weight: 600;
+  color: var(--text-secondary-color); /* Use secondary text color */
+  margin-bottom: 8px; transition: color 0.3s ease;
 }
 
-.form-input,
-.form-textarea,
-.form-select {
-  width: 100%;
-  padding: 12px 16px;
-  border: 2px solid #e2e8f0;
-  border-radius: 10px;
-  font-size: 14px;
-  color: #1e293b;
-  transition: all 0.3s ease;
-  font-family: inherit;
+.form-input, .form-textarea, .form-select {
+  width: 100%; padding: 12px 16px;
+  border: 1px solid var(--border-color); /* Use border variable */
+  border-radius: 10px; font-size: 14px;
+  color: var(--text-color); /* Use text color */
+  background-color: var(--bg-color); /* Use main background */
+  transition: all 0.3s ease; font-family: inherit;
 }
 
-.form-input:focus,
-.form-textarea:focus,
-.form-select:focus {
-  outline: none;
-  border-color: #0ea5e9;
-  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+.form-input:focus, .form-textarea:focus, .form-select:focus {
+  outline: none; border-color: var(--primary-color);
+  background-color: var(--bg-secondary-color); /* Use secondary background */
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
 }
 
-.form-input::placeholder,
-.form-textarea::placeholder {
-  color: #94a3b8;
+.form-input::placeholder, .form-textarea::placeholder {
+  color: var(--text-secondary-color); /* Use secondary text color */
+  transition: color 0.3s ease;
 }
 
-.form-textarea {
-  resize: vertical;
-  line-height: 1.6;
-}
+.form-textarea { resize: vertical; line-height: 1.6; }
 
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
-/* Tags */
+/* Tags Input */
 .tags-input-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: #f8fafc;
-  padding: 8px 12px;
-  border-radius: 10px;
-  border: 2px solid #e2e8f0;
+  display: flex; align-items: center; gap: 8px;
+  background: var(--bg-color); /* Use main background */
+  padding: 8px 12px; border-radius: 10px;
+  border: 1px solid var(--border-color); /* Use border variable */
   transition: all 0.3s ease;
 }
-
 .tags-input-wrapper:focus-within {
-  border-color: #0ea5e9;
-  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+  border-color: var(--primary-color);
+  background-color: var(--bg-secondary-color); /* Use secondary background */
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
 }
 
-.tag-icon {
-  color: #94a3b8;
-  font-size: 16px;
-}
+.tag-icon { color: var(--text-secondary-color); font-size: 16px; }
 
 .tag-input {
-  flex: 1;
-  border: none;
-  outline: none;
-  background: transparent;
-  font-size: 14px;
-  color: #1e293b;
-  font-family: inherit;
+  flex: 1; border: none; outline: none; background: transparent; font-size: 14px;
+  color: var(--text-color); font-family: inherit;
 }
-
-.tag-input::placeholder {
-  color: #cbd5e1;
-}
+.tag-input::placeholder { color: var(--text-secondary-color); }
 
 .add-tag-btn {
   padding: 6px 14px;
-  background: linear-gradient(135deg, #0ea5e9, #0284c7);
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-family: inherit;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white; border: none; border-radius: 6px; font-size: 12px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s; font-family: inherit;
 }
-
 .add-tag-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.3);
+  transform: scale(1.05); box-shadow: 0 2px 8px var(--shadow-color);
 }
 
-.tags-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 12px;
-}
+.tags-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 
 .tag-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  background: linear-gradient(135deg, #e0f2fe, #f0f9ff);
-  color: #0284c7;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: 600;
-  border: 1px solid #bae6fd;
+  display: flex; align-items: center; gap: 6px; padding: 6px 12px;
+  /* Use subtle background and primary text */
+  background-color: var(--bg-color);
+  color: var(--primary-color);
+  border-radius: 8px; font-size: 12px; font-weight: 600;
+  border: 1px solid var(--primary-color); /* Use primary color border */
+  transition: all 0.3s ease;
 }
 
 .remove-tag-btn {
-  background: none;
-  border: none;
-  padding: 2px;
-  cursor: pointer;
-  color: #0284c7;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
+  background: none; border: none; padding: 2px; cursor: pointer;
+  color: var(--primary-color); /* Match tag text color */
+  display: flex; align-items: center; justify-content: center; transition: all 0.2s;
   font-size: 18px;
 }
-
 .remove-tag-btn:hover {
-  color: #ef4444;
+  color: #ef4444; /* Semantic red on hover */
   transform: scale(1.2);
 }
 
 /* Modal Footer */
 .modal-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  padding: 20px 24px;
-  border-top: 2px solid #f1f5f9;
+  display: flex; justify-content: flex-end; gap: 12px; padding: 20px 24px;
+  border-top: 1px solid var(--border-color); /* Use border variable */
+  transition: border-color 0.3s ease;
 }
 
+/* Use styles from Profile.css for consistency */
 .btn-cancel {
-  padding: 10px 20px;
-  background: #f1f5f9;
-  color: #64748b;
-  border: none;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-family: inherit;
+  padding: 10px 20px; background: var(--bg-color); color: var(--text-secondary-color);
+  border: 1px solid var(--border-color); border-radius: 10px; font-size: 14px;
+  font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit;
 }
-
 .btn-cancel:hover {
-  background: #e2e8f0;
+  background: var(--bg-secondary-color); border-color: var(--text-secondary-color);
   transform: translateY(-2px);
 }
 
-.btn-create,
-.btn-save {
+.btn-create, .btn-save {
   padding: 10px 24px;
-  background: linear-gradient(135deg, #0ea5e9, #0284c7);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-family: inherit;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white; border: none; border-radius: 10px; font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s; font-family: inherit;
 }
-
-.btn-create:hover:not(:disabled),
-.btn-save:hover:not(:disabled) {
-  background: linear-gradient(135deg, #0284c7, #0369a1);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+.btn-create:hover:not(:disabled), .btn-save:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+  transform: translateY(-2px); box-shadow: 0 4px 12px var(--shadow-color);
 }
-
-.btn-create:disabled,
-.btn-save:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+.btn-create:disabled, .btn-save:disabled { opacity: 0.5; cursor: not-allowed; }
 
 /* Responsive adjustments */
 @media (max-width: 1200px) {
-  .taskboard-wrapper {
-    padding: 20px;
-  }
-
-  .task-board {
-    gap: 16px;
-  }
-
-  .task-column {
-    min-width: 280px;
-    width: 300px;
-  }
+  .taskboard-wrapper { padding: 20px; }
+  .task-board { gap: 16px; }
+  .task-column { min-width: 280px; width: 300px; height: auto; max-height: 70vh; /* Adjust height for smaller screens */ }
 }
 
 @media (max-width: 768px) {
-  .taskboard-wrapper {
-    padding: 16px;
-  }
-
-  .taskboard-main-title {
-    font-size: 22px;
-  }
-
-  .task-board {
-    gap: 12px;
-  }
-
-  .task-column {
-    min-width: 260px;
-    width: 280px;
-  }
-
-  .form-row {
-    grid-template-columns: 1fr;
-  }
-
-  .natural-input-wrapper {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .quick-create-btn {
-    justify-content: center;
-  }
+  .taskboard-wrapper { padding: 16px; }
+  .taskboard-main-title { font-size: 22px; }
+  .taskboard-search-bar { max-width: 100%; }
+  .task-board { gap: 12px; }
+  .task-column { min-width: 260px; width: 280px; height: auto; max-height: 65vh; }
+  .form-row { grid-template-columns: 1fr; }
+  .natural-input-wrapper { flex-direction: column; align-items: stretch; }
+  .quick-create-btn { justify-content: center; }
+  .modal-content { max-height: 85vh; } /* Adjust modal height */
 }

@@ -3,11 +3,7 @@ import "./Header.css";
 import { BsBell, BsBellFill, BsSearch } from "react-icons/bs";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-
-// --- (ĐÃ SỬA) ---
-// 1. Thay đổi đường dẫn import sang ảnh con mèo
-import defaultAvatar from "../assets/Trangchu/avt.png";
-// --- KẾT THÚC SỬA ---
+import defaultAvatar from "../assets/Trangchu/avt.png"; // Ảnh con mèo mặc định
 
 function Header({ onLogout }) {
   const [showNotifications, setShowNotifications] = useState(false);
@@ -16,25 +12,16 @@ function Header({ onLogout }) {
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("User");
-
-  // --- (ĐÃ SỬA) ---
-  // 2. Sử dụng 'defaultAvatar' (ảnh con mèo) làm state mặc định
-  const [avatar, setAvatar] = useState(defaultAvatar);
-  // --- KẾT THÚC SỬA ---
+  const [avatar, setAvatar] = useState(defaultAvatar); // Mặc định là ảnh con mèo
 
   useEffect(() => {
     try {
       const userString = localStorage.getItem("user");
       if (userString) {
         const userData = JSON.parse(userString);
-        
         setUsername(userData.username || "User");
-
-        // --- (ĐÃ SỬA) ---
-        // 3. Sử dụng 'defaultAvatar' (ảnh con mèo) làm ảnh dự phòng
-        //    nếu CSDL (localStorage) không có avatar_url
+        // Nếu CSDL có avatar_url thì dùng, nếu không (null) thì dùng ảnh con mèo
         setAvatar(userData.avatar_url || defaultAvatar);
-        // --- KẾT THÚC SỬA ---
       }
     } catch (e) {
       console.error("Lỗi khi đọc user từ localStorage:", e);
@@ -71,9 +58,8 @@ function Header({ onLogout }) {
           className={`user-profile ${showUserMenu ? "active" : ""}`}
           onClick={() => setShowUserMenu(!showUserMenu)}
         >
-          {/* 4. Thẻ <img> này giờ đã được đồng bộ chính xác */}
           <img src={avatar} alt="Avatar" className="user-avatar" />
-          
+
           <div className="user-info">
             <span className="user-name">{username}</span>
             <IoMdArrowDropdown className="dropdown-icon" />
@@ -92,17 +78,22 @@ function Header({ onLogout }) {
             >
               👤 Hồ sơ
             </div>
-            <div
-              className="dropdown-item"
-              onClick={() => {
-                navigate("/settings"); // Giả sử bạn có route /settings
-                setShowUserMenu(false);
-              }}
-            >
-              ⚙️ Cài đặt
-            </div>
+
+            {/* --- NÚT CÀI ĐẶT --- */}
+          <div
+            className="dropdown-item"
+            onClick={(e) => { // 👈 Thêm 'e' vào đây
+              e.stopPropagation(); // 👈 THÊM DÒNG NÀY để ngăn sự kiện lan lên
+              navigate("/settings");
+              setShowUserMenu(false); 
+            }}
+          >
+            ⚙️ Cài đặt
+          </div>
+          {/* --- KẾT THÚC NÚT CÀI ĐẶT --- */}
+
             <div className="dropdown-divider"></div>
-            
+
             <div
               className="dropdown-item logout"
               onClick={() => {
@@ -110,7 +101,7 @@ function Header({ onLogout }) {
                   onLogout();
                 }
                 navigate("/login");
-                setShowUserMenu(false); 
+                setShowUserMenu(false);
               }}
             >
               🚪 Đăng xuất

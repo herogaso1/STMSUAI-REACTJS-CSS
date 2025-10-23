@@ -4,14 +4,7 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #ffffff;
-}
+/* body styles are now primarily in index.css */
 
 /* .app {
   height: auto;
@@ -21,16 +14,17 @@ body {
 /* Layout chính cho dashboard */
 .app-layout {
   display: flex;
-  height: auto;
-  background: #f9fafb;
+  min-height: 100vh; /* Use min-height instead of height: auto */
+  background: var(--bg-color); /* Use main background variable */
 }
 
 /* Layout riêng cho login / register / landing */
 .auth-layout {
-  height: auto;
+  min-height: 100vh; /* Use min-height */
   max-width: 100%;
-  background: #fff; /* hoặc gradient riêng */
+  /* background: var(--bg-secondary-color); */ /* Usually auth pages have a different background, often handled by auth.css */
 }
+
 .main-content {
   flex: 1;
   display: flex;
@@ -38,21 +32,23 @@ body {
   overflow: hidden;
 }
 
-.main-content.full-width {
+/* Remove this? Sidebar presence determines width */
+/* .main-content.full-width {
   width: 100%;
   margin-left: 0;
-}
+} */
 
 .content-area {
   flex: 1;
   overflow: auto;
-  background-color: #f5f5f7;
+  background-color: var(--bg-color); /* Use main background variable */
+  padding: 20px; /* Add some padding */
 }
 
-/* Override background for Landing Page */
-.content-area:has(.landing-page) {
+/* Remove this override, LandingPage should handle its own background if needed */
+/* .content-area:has(.landing-page) {
   background-color: transparent;
-}
+} */
 
 .placeholder {
   display: flex;
@@ -60,15 +56,16 @@ body {
   align-items: center;
   justify-content: center;
   height: 100%;
-  color: #6b7280;
+  color: var(--text-secondary-color); /* Use secondary text variable */
 }
 
 .placeholder h2 {
   font-size: 32px;
   margin-bottom: 16px;
+  color: var(--text-color); /* Use main text variable */
 }
 
 .placeholder p {
   font-size: 16px;
-  color: #9ca3af;
+  color: var(--text-secondary-color); /* Use secondary text variable */
 }
