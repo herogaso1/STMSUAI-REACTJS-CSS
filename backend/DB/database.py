@@ -11,7 +11,10 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 
 # Khởi tạo engine và session
 # Thêm sslmode để Neon chấp nhận kết nối
-engine = create_engine(DATABASE_URL, echo=True, connect_args={"sslmode": "require"})
+engine = create_engine(DATABASE_URL, echo=True, connect_args={
+    "sslmode": "require",
+    "connect_timeout": 10  # Thêm dòng này: Bắt buộc chờ tối đa 10 giây
+})
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 

@@ -2,37 +2,48 @@ import React from 'react';
 import './Sidebar.css';
 import dashboardIcon from '../assets/TaskManagement-icon/dashboard.svg';
 import taskIcon from '../assets/TaskManagement-icon/task-default.svg';
-import notesIcon from '../assets/TaskManagement-icon/task-default.svg'; // Temporary, replace with actual notes icon
+import notesIcon from '../assets/TaskManagement-icon/task-default.svg';
 import calendarIcon from '../assets/TaskManagement-icon/calendar.svg';
 import pomodoroIcon from '../assets/TaskManagement-icon/pomodoro.svg';
 import studyRoomIcon from '../assets/TaskManagement-icon/study-room.svg';
-import workspacesIcon from '../assets/TaskManagement-icon/dashboard.svg'; // Temporary, replace with actual workspaces icon
-import aiIcon from '../assets/TaskManagement-icon/search.svg'; // Temporary, using search icon for AI
+import workspacesIcon from '../assets/TaskManagement-icon/dashboard.svg';
+import aiIcon from '../assets/TaskManagement-icon/search.svg';
 
-const Sidebar = ({ activeTab, setActiveTab }) => {
+// 1. Import thêm 'Link' và 'useLocation' từ React Router
+import { Link, useLocation } from 'react-router-dom';
+
+// 2. Xóa props 'activeTab' và 'setActiveTab' vì chúng ta sẽ dùng router
+const Sidebar = () => {
+  // 3. Lấy URL hiện tại từ router
+  const location = useLocation();
+
+  // 4. Thêm thuộc tính 'path' (đường dẫn URL) cho mỗi mục
   const menuItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: dashboardIcon },
-    { id: 'tasks', label: 'Tasks', icon: taskIcon },
-    { id: 'notes', label: 'Notes', icon: notesIcon },
-    { id: 'calendar', label: 'Calendar', icon: calendarIcon },
-    { id: 'pomodoro', label: 'Pomodoro', icon: pomodoroIcon },
-    { id: 'ai', label: 'AI Assistant', icon: aiIcon },
-    { id: 'workspaces', label: 'Workspaces', icon: workspacesIcon },
-    { id: 'study-room', label: 'Study Room', icon: studyRoomIcon },
+    { id: 'dashboard', label: 'Dashboard', icon: dashboardIcon, path: '/dashboard' },
+    { id: 'tasks', label: 'Tasks', icon: taskIcon, path: '/tasks' },
+    { id: 'notes', label: 'Notes', icon: notesIcon, path: '/notes' },
+    { id: 'calendar', label: 'Calendar', icon: calendarIcon, path: '/calendar' },
+    { id: 'pomodoro', label: 'Pomodoro', icon: pomodoroIcon, path: '/pomodoro' },
+    { id: 'ai', label: 'AI Assistant', icon: aiIcon, path: '/ai-assistant' },
+    { id: 'workspaces', label: 'Workspaces', icon: workspacesIcon, path: '/workspaces' },
+    { id: 'study-room', label: 'Study Room', icon: studyRoomIcon, path: '/study-room' },
   ];
 
   return (
     <div className="sidebar">
       <nav className="sidebar-nav">
         {menuItems.map((item) => (
-          <button
+          // 5. Thay thế <button> bằng component <Link>
+          <Link
             key={item.id}
-            className={`sidebar-item ${activeTab === item.id ? 'active' : ''}`}
-            onClick={() => setActiveTab(item.id)}
+            to={item.path} // 6. 'to' chỉ định URL đích khi nhấn vào
+            // 7. Tự động highlight tab active bằng cách so sánh URL
+            className={`sidebar-item ${location.pathname === item.path ? 'active' : ''}`}
+            // 8. Xóa onClick
           >
             <img src={item.icon} alt={item.label} className="sidebar-icon" />
             <span className="sidebar-label">{item.label}</span>
-          </button>
+          </Link>
         ))}
       </nav>
       

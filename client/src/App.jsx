@@ -1,57 +1,62 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+// 1. Import thêm Outlet
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  Outlet, 
+} from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import ForgotPassword from "./components/ForgotPassword";
 import LandingPage from "./components/LandingPage";
 import Dashboard from "./components/Dashboard";
 import DashboardAdmin from "./components/DashboardAdmin";
 import TaskBoard from "./components/TaskBoard";
 import Notes from "./components/Notes";
-import Calendar from "./components/Calendar";
+import Calendar from "./components/Calendar"; 
 import Pomodoro from "./components/Pomodoro";
 import AIAssistant from "./components/AIAssistant";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
-import Profile from "./components/Profile"; // 👤 Thêm component Hồ sơ
-import ChangePassword from "./components/ChangePassword"; // 🔐 Thêm component Đổi mật khẩu
+import Profile from "./components/Profile";
+
+// --- (CODE MỚI) IMPORT THÊM 2 TRANG ---
+import ForgotPassword from "./components/ForgotPassword";
+import ResetPassword from "./components/ResetPassword";
+// --- KẾT THÚC CODE MỚI ---
+
 import "./App.css";
 
-// 🧩 Layout chính cho user sau khi đăng nhập
-const AppLayout = ({ activeTab, setActiveTab, onLogout, children }) => (
+// Layout chính - Dùng Outlet
+const AppLayout = ({ onLogout, children }) => (
   <div className="app-layout">
-    <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} onLogout={onLogout} />
+    <Sidebar onLogout={onLogout} />
     <div className="main-content">
-      <Header />
+      <Header onLogout={onLogout} />
       <div className="content-area">
-        {children ? (
-          children
-        ) : (
-          <>
-            {activeTab === "dashboard" && <Dashboard />}
-            {activeTab === "tasks" && <TaskBoard />}
-            {activeTab === "notes" && <Notes />}
-            {activeTab === "calendar" && <Calendar />}
-            {activeTab === "pomodoro" && <Pomodoro />}
-            {activeTab === "ai" && <AIAssistant />}
-          </>
-        )}
+        {/* Truyền onLogout qua Outlet context */}
+        <Outlet context={{ onLogout }} /> 
       </div>
     </div>
   </div>
 );
 
-// 🪞 Layout cho các trang ngoài (login, register, landing)
+// Layout cho các trang ngoài
 const AuthLayout = ({ children }) => <div className="auth-layout">{children}</div>;
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [activeTab, setActiveTab] = useState("dashboard");
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    !!localStorage.getItem("user")
+  );
 
-  const handleLoginSuccess = () => setIsLoggedIn(true);
+  const handleLoginSuccess = () => {
+    setIsLoggedIn(true);
+  };
   const handleLogout = () => {
     setIsLoggedIn(false);
     localStorage.removeItem("role");
+    localStorage.removeItem("user"); 
   };
 
   const userRole = localStorage.getItem("role");
@@ -59,7 +64,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* 🌅 Trang Landing */}
+        {/* 🌅 Trang Landing (công khai) */}
         <Route
           path="/"
           element={
@@ -77,7 +82,7 @@ function App() {
           }
         />
 
-        {/* 🔑 Login */}
+        {/* 🔑 Login (công khai) */}
         <Route
           path="/login"
           element={
@@ -95,7 +100,7 @@ function App() {
           }
         />
 
-        {/* 📝 Register */}
+        {/* 📝 Register (công khai) */}
         <Route
           path="/register"
           element={
@@ -109,11 +114,12 @@ function App() {
           }
         />
 
-        {/* � Forgot Password */}
+        {/* --- (CODE MỚI) THÊM 2 ROUTE CHO QUÊN MẬT KHẨU --- */}
+        {/* Trang Quên mật khẩu */}
         <Route
           path="/forgot-password"
           element={
-            isLoggedIn ? (
+            isLoggedIn ? ( // Nếu đã login thì quay về dashboard
               <Navigate to="/dashboard" />
             ) : (
               <AuthLayout>
@@ -122,72 +128,59 @@ function App() {
             )
           }
         />
-
-        {/* �👤 Dashboard cho user */}
+        
+        {/* Trang Đặt lại mật khẩu (có token trên URL) */}
         <Route
-          path="/dashboard"
+          path="/reset-password/:token" 
           element={
-            isLoggedIn && userRole === "user" ? (
-              <AppLayout
-                activeTab={activeTab}
-                setActiveTab={setActiveTab}
-                onLogout={handleLogout}
-              />
-            ) : userRole === "admin" ? (
-              <Navigate to="/dashboard-admin" />
+             isLoggedIn ? ( // Nếu đã login thì quay về dashboard
+              <Navigate to="/dashboard" />
             ) : (
-              <Navigate to="/" />
+              <AuthLayout>
+                <ResetPassword />
+              </AuthLayout>
             )
           }
         />
+        {/* --- KẾT THÚC CODE MỚI --- */}
+
 
         {/* 🧠 Dashboard riêng cho admin */}
         <Route
           path="/dashboard-admin"
           element={
             isLoggedIn && userRole === "admin" ? (
-              <DashboardAdmin />
-            ) : (
-              <Navigate to="/" />
-            )
-          }
-        />
-
-        {/* 👤 Trang hồ sơ */}
-        <Route
-          path="/profile"
-          element={
-            isLoggedIn ? (
-              <AppLayout
-                activeTab={activeTab}
-                setActiveTab={setActiveTab}
-                onLogout={handleLogout}
-              >
-                <Profile />
-              </AppLayout>
+              <DashboardAdmin /> 
             ) : (
               <Navigate to="/login" />
             )
           }
         />
 
-        {/* 🔐 Trang đổi mật khẩu */}
+        {/* ĐỊNH TUYẾN CHÍNH CHO USER (DÙNG LAYOUT) */}
         <Route
-          path="/change-password"
+          path="/" 
           element={
-            isLoggedIn ? (
-              <AppLayout
-                activeTab={activeTab}
-                setActiveTab={setActiveTab}
-                onLogout={handleLogout}
-              >
-                <ChangePassword />
-              </AppLayout>
+            isLoggedIn && userRole === "user" ? (
+              <AppLayout onLogout={handleLogout} />
             ) : (
-              <Navigate to="/login" />
+              <Navigate to="/login" /> 
             )
           }
-        />
+        >
+          {/* Các Route con */}
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="tasks" element={<TaskBoard />} />
+          <Route path="notes" element={<Notes />} />
+          <Route path="calendar" element={<Calendar />} />
+          <Route path="pomodoro" element={<Pomodoro />} />
+          <Route path="ai-assistant" element={<AIAssistant />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="workspaces" element={<div>Trang Workspaces</div>} />
+          <Route path="study-room" element={<div>Trang Study Room</div>} />
+          <Route index element={<Navigate to="/dashboard" />} />
+        </Route> {/* Kết thúc Route cha */}
+
 
         {/* ❌ Route không tồn tại */}
         <Route path="*" element={<Navigate to="/" />} />
