@@ -3,6 +3,9 @@ from flask_cors import CORS
 import os
 from dotenv import load_dotenv
 import requests
+from DB.database import get_db, engine
+from DB.models import User, Task, Workspace, Tag, Note, Notification
+from sqlalchemy import text
 
 app = Flask(__name__)
 CORS(app)
@@ -32,6 +35,47 @@ Quy tắc phản hồi:
 @app.route('/api/test', methods=['GET'])
 def test():
     return jsonify({"message": "✅ Backend STMSUAI đang hoạt động!"})
+
+# ✅ Route test database connection
+@app.route('/api/db-test', methods=['GET'])
+def db_test():
+    try:
+        db = next(get_db())
+        # Test connection
+        db.execute(text("SELECT 1"))
+        
+        # Count users
+        users_count = db.query(User).count()
+        tasks_count = db.query(Task).count()
+        
+        return jsonify({
+            "message": "✅ Kết nối database thành công!",
+            "database": "my_project_STMSUAI_db",
+            "users_count": users_count,
+            "tasks_count": tasks_count
+        })
+    except Exception as e:
+        return jsonify({"error": f"❌ Lỗi database: {str(e)}"}), 500
+
+# ✅ Route lấy danh sách users
+@app.route('/api/users', methods=['GET'])
+def get_users():
+    try:
+        db = next(get_db())
+        users = db.query(User).limit(10).all()
+        
+        users_list = [{
+            "user_id": user.user_id,
+            "username": user.username,
+            "email": user.email,
+            "full_name": user.full_name,
+            "role": user.role,
+            "created_at": user.created_at.isoformat() if user.created_at else None
+        } for user in users]
+        
+        return jsonify({"users": users_list, "count": len(users_list)})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 # ✅ Route AI chat
 @app.route('/api/ai-chat', methods=['POST'])
