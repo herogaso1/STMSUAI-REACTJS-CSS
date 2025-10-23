@@ -116,3 +116,8 @@ class PomodoroSession(Base):
     task_id = Column(BigInteger, ForeignKey('tasks.task_id', ondelete='SET NULL'))
     
     user = relationship('User', back_populates='pomodoro_sessions')
+if __name__ == "__main__":
+    from DB.database import engine
+    print("🔧 Creating tables in the Neon database...")
+    Base.metadata.create_all(bind=engine)
+    print("✅ All tables created successfully!")

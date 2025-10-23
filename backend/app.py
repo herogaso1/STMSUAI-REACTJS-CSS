@@ -6,6 +6,7 @@ import requests
 from DB.database import get_db, engine
 from DB.models import User, Task, Workspace, Tag, Note, Notification
 from sqlalchemy import text
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 CORS(app)
@@ -41,13 +42,9 @@ def test():
 def db_test():
     try:
         db = next(get_db())
-        # Test connection
         db.execute(text("SELECT 1"))
-        
-        # Count users
         users_count = db.query(User).count()
         tasks_count = db.query(Task).count()
-        
         return jsonify({
             "message": "✅ Kết nối database thành công!",
             "database": "my_project_STMSUAI_db",
@@ -63,7 +60,6 @@ def get_users():
     try:
         db = next(get_db())
         users = db.query(User).limit(10).all()
-        
         users_list = [{
             "user_id": user.user_id,
             "username": user.username,
@@ -72,10 +68,57 @@ def get_users():
             "role": user.role,
             "created_at": user.created_at.isoformat() if user.created_at else None
         } for user in users]
-        
         return jsonify({"users": users_list, "count": len(users_list)})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+# ✅ Route đăng ký tài khoản
+@app.route('/api/register', methods=['POST'])
+def register():
+    data = request.get_json()
+    name = data.get("name")
+    email = data.get("email")
+    password = data.get("password")
+
+    if not all([name, email, password]):
+        return jsonify({"error": "Thiếu thông tin đăng ký!"}), 400
+
+    db = next(get_db())
+    existing_user = db.query(User).filter_by(email=email).first()
+    if existing_user:
+        return jsonify({"error": "Email đã tồn tại!"}), 400
+
+    hashed_pw = generate_password_hash(password)
+    new_user = User(username=name, email=email, password=hashed_pw)
+    db.add(new_user)
+    db.commit()
+
+    return jsonify({"message": "Đăng ký thành công!"}), 201
+
+# ✅ Route đăng nhập tài khoản
+@app.route('/api/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    email = data.get("email")
+    password = data.get("password")
+
+    if not all([email, password]):
+        return jsonify({"error": "Thiếu email hoặc mật khẩu!"}), 400
+
+    db = next(get_db())
+    user = db.query(User).filter_by(email=email).first()
+
+    if not user or not check_password_hash(user.password, password):
+        return jsonify({"error": "Sai email hoặc mật khẩu!"}), 401
+
+    return jsonify({
+        "message": "Đăng nhập thành công!",
+        "user": {
+            "user_id": user.user_id,
+            "username": user.username,
+            "email": user.email
+        }
+    }), 200
 
 # ✅ Route AI chat
 @app.route('/api/ai-chat', methods=['POST'])
@@ -90,9 +133,7 @@ def ai_chat():
         return jsonify({"reply": "⚠️ Thiếu GEMINI_API_KEY trong file .env"})
 
     try:
-        # 🧠 URL có thể thay model dễ dàng
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL_NAME}:generateContent?key={GEMINI_API_KEY}"
-        
         payload = {
             "contents": [{
                 "parts": [{
@@ -100,7 +141,6 @@ def ai_chat():
                 }]
             }]
         }
-
         headers = {"Content-Type": "application/json"}
         res = requests.post(url, headers=headers, json=payload)
         res_data = res.json()

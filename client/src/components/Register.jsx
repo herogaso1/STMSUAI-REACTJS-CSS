@@ -11,14 +11,35 @@ const Register = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.name && formData.email && formData.password) {
-      alert("Đăng ký thành công!");
-      navigate("/login");
-    } else {
+    if (!formData.name || !formData.email || !formData.password) {
       alert("Vui lòng nhập đầy đủ thông tin!");
+      return;
+    }
+
+    try {
+      const res = await fetch("http://localhost:5000/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: formData.name,
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        alert("🎉 Đăng ký thành công!");
+        navigate("/login");
+      } else {
+        alert(`❌ Lỗi: ${data.message}`);
+      }
+    } catch (error) {
+      console.error("Lỗi:", error);
+      alert("Không thể kết nối đến server!");
     }
   };
 
